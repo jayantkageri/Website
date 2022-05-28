@@ -1,7 +1,27 @@
 {
   "name": "jayantkageri",
   "version": "1.0.0",
-  "private": true,
+  "homepage": "https://github.com/jayantkageri/Website",
+  "license": "AGPL-3.0-or-later",
+  "author": {
+    "name": "Jayant Hegde Kageri",
+    "email": "jayantkageri@gmail.com",
+    "url": "https://jayantkageri.in"
+  },
+  "funding": [
+    {
+      "type": "upi",
+      "url": "https://links.jayantkageri.in/payu"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/jayantkageri"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/jayantkageri"
+    }
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
