@@ -34,7 +34,7 @@ async function contact(req, res) {
         if (
             !req.body.name ||
             !req.body.email ||
-            !email.toString().toLowerCase().match(eMailRegex) ||
+            !req.body.email.toString().toLowerCase().match(eMailRegex) ||
             !req.body.message ||
             process.env.HCAPTCHA_SECRET && !req.body.token
         ) {
