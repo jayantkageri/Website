@@ -22,7 +22,7 @@ _This repository contains the Source Code of the Website [jayantkageri.in](https
 
 ## Environment Variables
 
-To run this website, you will need to add the following environment variables to your .env file or to your environment variables
+To run this website, you will need to add the following environment variables to your .env file or your environment variables
 
 * `BOT_TOKEN` **required** - Telegram Bot token obtained in [@BotFather](https://telegram.me/BotFather)
 
@@ -30,7 +30,7 @@ To run this website, you will need to add the following environment variables to
 
 * `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` **optional** - hCaptcha Site Key
 
-* `HCAPTCHA_SECRET` **optional** - hCaptcha Secret for verifying the reponse
+* `HCAPTCHA_SECRET` **optional** - hCaptcha Secret for verifying the response
 
 * `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` **optional** - Google Analytics Tracking ID
 
@@ -44,6 +44,6 @@ To run this website, you will need to add the following environment variables to
 
 * Copyright (C) 2021-2022 Jayant Hegde Kageri
 
-* Licened under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+* Licensed under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 
 [![GNU AGPL-3.0-or-later](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html)
