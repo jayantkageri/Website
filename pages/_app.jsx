@@ -27,18 +27,24 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
 function App({ Component, pageProps }) {
+  // Function to use React Toastify easily.
   const alert = (type, messgae) => {
     toast[type](messgae);
   };
 
+  // Cookies States
   const [info, setInfo] = React.useState({ cookies: true });
+
+  // Next Router
   const router = useRouter();
 
   React.useEffect(() => {
+    // Check the user if he has accepted the cookies.
     localStorage &&
       !localStorage.getItem("cookies") &&
       setInfo({ ...info, cookies: false });
 
+    // Title for the page.
     switch (router.pathname) {
       case "/contact":
         setInfo({ ...info, page: "Contact" });
@@ -58,12 +64,15 @@ function App({ Component, pageProps }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
+  // Initialize Google Analytics.
   process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
     ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
 
+  // Send pageview to Google Analytics.
   process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
     ReactGA.pageview(router.pathname);
 
+  // Easy function to add an event to Google Analytics.
   const addEvent = (category, action) => {
     process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
       ReactGA.event({ category, action });
@@ -72,10 +81,14 @@ function App({ Component, pageProps }) {
   return (
     <>
       <section className="bg-gray-900 min-h-screen">
+        {/* Meta Tags for all the pages */}
         <Meta page={info.page} />
+        {/* Navbar */}
         <Navbar />
+        {/* React Toastify */}
         <ToastContainer />
 
+        {/* Cookies accepting section */}
         {!info.cookies && (
           <div className="flex justify-center bg-indigo-500">
             <div className="max-w-md text-white m-3">
@@ -95,8 +108,10 @@ function App({ Component, pageProps }) {
           </div>
         )}
 
+        {/* Main content of the page */}
         <Component {...pageProps} alert={alert} addEvent={addEvent} />
       </section>
+      {/* Footer */}
       <Footer />
     </>
   );

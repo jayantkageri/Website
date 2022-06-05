@@ -30,6 +30,7 @@ export default function Video(props) {
                   className="w-full h-full rounded"
                   controls
                   onPlay={() => {
+                    // Send data to Google Analytics.
                     props.addEvent("video", "jayantkageri.in - video played");
                   }}
                 >

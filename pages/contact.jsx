@@ -20,41 +20,54 @@ import React from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function Contact(props) {
+  // States for the form.
   const [info, setInfo] = React.useState({});
+  // Refrences for form and hCaptcha.
   const ref = React.useRef();
   const hcaptcha = React.useRef();
 
   const onChange = (e) => {
+    // onChange function for the form.
     setInfo({ ...info, [e.target.id]: e.target.value });
   };
 
+  // Regex Expression for the email validation.
   const eMailRegex =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
+  // Handling the form submission.
   const onSubmit = async (e) => {
+    // Preventing the default form submission action of HTML.
     e.preventDefault();
+    // Set loading to true.
     setInfo({ ...info, loading: true });
 
+    // Validation
     if (!info.name || !info.email || !info.message) {
       setInfo({ ...info, loading: false });
       return props.alert("error", "Please fill all the fields");
     }
 
+    // eMail Validation
     if (!info.email.toString().toLowerCase().match(eMailRegex)) {
       setInfo({ ...info, loading: false });
       return props.alert("error", "Please enter a valid email");
     }
 
-    if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info.token) {
+    // Captcha Validation
+    if (!info.token) {
+      // Sending data to Google Analytics.
       props.addEvent(
         "contact",
         "jayantkageri.in - Tried to send message without completing captcha"
       );
 
+      // Alert the user
       setInfo({ ...info, loading: false });
       return props.alert("error", "Please solve the hCaptcha");
     }
 
+    // Sending data to backend API.
     let data = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL || ""}/api/contact`,
       {
@@ -67,36 +80,50 @@ export default function Contact(props) {
       }
     );
 
+    // Awaiting the response
     data = await data.json();
 
+    // Exceptions for error.
     if (!data.success && data.message) {
+      // Send data to Google Analytics.
       props.addEvent("contact", `jayantkageri.in - error: ${data.message}`);
 
+      // Reset the form.
       setInfo({});
       ref.current.reset();
+      // Reset the captcha.
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha.current.resetCaptcha();
+      //  Alert the user.
       return props.alert("error", data.message);
     }
 
+    // If Telegram was unable to send the message
     if (!data.sent) {
       setInfo({});
+      // Send data to Google Analytics.
       props.addEvent(
         "contact",
-        "jayantkageri.in - got an error while sending message to Telegram"
+        "jayantkageri.in - Intenrnal Server Error while sending message to Telegram"
       );
-
+      // Reset the form.
       ref.current.reset();
+      // Reset the captcha
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha.current.resetCaptcha();
+      // Alert the user.
       return props.alert("error", "Something went wrong");
     }
 
+    // Send data to Google Analytics.
     props.addEvent("contact", "jayantkageri.in - submitted a contact request");
+    // Reset the form.
     setInfo({});
     ref.current.reset();
+    // Reset the captcha
     process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
       hcaptcha.current.resetCaptcha();
+    // Alert the user.
     props.alert("success", "Message sent successfully");
   };
 

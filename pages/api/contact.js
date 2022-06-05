@@ -20,33 +20,43 @@ import requestIp from 'request-ip'
 import { verify } from 'hcaptcha'
 
 async function contact(req, res) {
+    // Try the contact function
     try {
         if (req.method.toString().toUpperCase() !== "POST") {
             return res.status(405).send("Method not Allowed")
         }
 
-        const ip = requestIp.getClientIp(req)
-
-        if (!req.body.name || !req.body.email || !req.body.message || process.env.HCAPTCHA_SECRET && !req.body.token) {
-            return res.status(400).send({ success: false, message: "Bad Request" })
-        }
-
+        // Regex Expression to check if the email is valid
         const eMailRegex =
             /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-        const { name, email, message, token } = req.body
-
-        if (!email.toString().toLowerCase().match(eMailRegex)) {
+        // Validations
+        if (
+            !req.body.name ||
+            !req.body.email ||
+            !email.toString().toLowerCase().match(eMailRegex) ||
+            !req.body.message ||
+            process.env.HCAPTCHA_SECRET && !req.body.token
+        ) {
             return res.status(400).send({ success: false, message: "Bad Request" })
         }
 
+        // Getting the Client IP
+        const ip = requestIp.getClientIp(req)
+
+        // Destructuring the request body
+        const { name, email, message, token } = req.body
+
+        // Verifying the captcha if exists
         if (process.env.HCAPTCHA_SECRET) {
             const data = await verify(process.env.HCAPTCHA_SECRET, token)
             if (!data.success) {
+                // If not captcha verified, return error
                 return res.status(400).send({ success: false, message: data['error-codes'] })
             }
         }
 
+        // Message to be sent to the telegram
         const msg = `#CONTACT_REQUEST
     Name: ${name}
     eMail: ${email}
@@ -54,12 +64,14 @@ async function contact(req, res) {
     Message:\n${message}
     `
 
+        // Body for Sending the message to the telegram
         let bodyContent = JSON.stringify({
             chat_id: process.env.CHAT_ID,
             text: msg,
             disable_web_page_preview: true,
         });
 
+        // Sending the message to the telegram
         const request = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
             method: "POST",
             headers: {
@@ -70,13 +82,16 @@ async function contact(req, res) {
                 "Content-Type": "application/json"
             },
             redirect: "follow",
-
             body: bodyContent
         })
+
+        // Await the response of Telegram
         const response = await request.json()
 
+        // Sending the response to the client
         return res.status(201).send({ success: true, sent: response.ok })
     } catch (err) {
+        // If any error occurs, sending the error to the client
         return res.status(500).send({ success: false, message: err.message })
     }
 }
