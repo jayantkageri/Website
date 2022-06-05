@@ -72,9 +72,9 @@ export default function Home() {
                   </h1>
 
                   <p className="mt-3 text-gray-300">
-                    I am a Fullstack Developer with a passion for building
-                    NextJS, ReactJS, ExpressJS, and Python apps using
-                    TailwindCSS and Bootstrap for designing.
+                    I am a Fullstack Developer with experience building NextJS,
+                    ReactJS, ExpressJS, and Python apps using TailwindCSS and
+                    Bootstrap for designing.
                   </p>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export default function Home() {
 
                   <p className="mt-3 text-gray-300">
                     With the power of TailwindCSS and NextJS, all of my websites
-                    are flexible, and fully customizable configurations.
+                    are flexible and fully customizable configurations.
                   </p>
                 </div>
               </div>
@@ -161,8 +161,8 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
                   </h1>
 
                   <p className="mt-3 text-gray-300">
-                    Whether it is a mobile or desktop website, I can build a
-                    website which fully responsive to all the devices.
+                    Whether a mobile or desktop client, I can build a fully
+                    responsive website for all the devices.
                   </p>
                 </div>
               </div>
