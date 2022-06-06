@@ -29,6 +29,8 @@ export default function Video(props) {
                 <video
                   className="w-full h-full rounded"
                   controls
+                  // Disable Playback Speed Option
+                  controlsList={"noplaybackrate"}
                   onPlay={() => {
                     // Send data to Google Analytics.
                     props.addEvent("video", "jayantkageri.in - video played");
