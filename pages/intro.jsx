@@ -21,32 +21,34 @@ import React from "react";
 export default function Video(props) {
   return (
     <>
-      <div className="container bg-gray-900 min-w-full min-h-screen">
-        <header className="bg-gray-900">
-          <div className="container px-6 py-16 mx-auto">
-            <div className="items-center flex justify-center">
-              <div className="w-full">
-                <video
-                  className="w-full h-full rounded"
-                  controls
-                  // Disable Playback Speed Option
-                  controlsList={"noplaybackrate"}
-                  onPlay={() => {
-                    // Send data to Google Analytics.
-                    props.addEvent("video", "jayantkageri.in - video played");
-                  }}
-                >
-                  <source
-                    src={"/assets/videos/jayantkageri.mp4"}
-                    type="video/mp4"
-                    alt="Video"
-                  />
-                </video>
+      <section id="intro" className="bg-gray-900 min-w-full min-h-screen">
+        <div className="container">
+          <header className="bg-gray-900">
+            <div className="container px-6 py-16 mx-auto">
+              <div className="items-center flex justify-center">
+                <div className="w-full">
+                  <video
+                    className="w-full h-full rounded"
+                    controls
+                    // Disable Playback Speed Option
+                    controlsList={"noplaybackrate"}
+                    onPlay={() => {
+                      // Send data to Google Analytics.
+                      props.addEvent("video", "jayantkageri.in - video played");
+                    }}
+                  >
+                    <source
+                      src={"/assets/videos/jayantkageri.mp4"}
+                      type="video/mp4"
+                      alt="Video"
+                    />
+                  </video>
+                </div>
               </div>
             </div>
-          </div>
-        </header>
-      </div>
+          </header>
+        </div>
+      </section>
     </>
   );
 }

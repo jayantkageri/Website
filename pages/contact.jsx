@@ -55,7 +55,7 @@ export default function Contact(props) {
     }
 
     // Captcha Validation
-    if (!info.token) {
+    if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info.token) {
       // Sending data to Google Analytics.
       props.addEvent(
         "contact",
@@ -129,7 +129,7 @@ export default function Contact(props) {
 
   return (
     <>
-      <section className="bg-gray-900 min-h-screen">
+      <section id="contact" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
           <div className="w-full mx-auto flex justify-center">
             <div>

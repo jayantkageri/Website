@@ -17,12 +17,12 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import Meta from "../components/Meta";
-import Navbar from "../components/Navbar";
 import ReactGA from "react-ga";
 import { ToastContainer, toast } from "react-toastify";
-import Footer from "../components/Footer";
 import { useRouter } from "next/router";
+import Meta from "../components/Meta";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
@@ -80,14 +80,14 @@ function App({ Component, pageProps }) {
 
   return (
     <>
-      <section className="bg-gray-900 min-h-screen">
-        {/* Meta Tags for all the pages */}
-        <Meta page={info.page} />
-        {/* Navbar */}
-        <Navbar />
-        {/* React Toastify */}
-        <ToastContainer />
+      {/* Meta Tags for all the pages */}
+      <Meta page={info.page} />
+      {/* Navbar */}
+      <Navbar />
+      {/* React Toastify */}
+      <ToastContainer />
 
+      <main className="bg-gray-900 min-h-screen">
         {/* Cookies accepting section */}
         {!info.cookies && (
           <div className="flex justify-center bg-indigo-500">
@@ -110,7 +110,7 @@ function App({ Component, pageProps }) {
 
         {/* Main content of the page */}
         <Component {...pageProps} alert={alert} addEvent={addEvent} />
-      </section>
+      </main>
       {/* Footer */}
       <Footer />
     </>

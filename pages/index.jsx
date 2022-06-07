@@ -22,7 +22,7 @@ import jayantkageri from "../assets/jayantkageri.png";
 export default function Home() {
   return (
     <>
-      <section className="bg-gray-900">
+      <section id="home" className="bg-gray-900">
         <div className="container px-6 py-10 mx-auto">
           <div className="lg:flex lg:items-center mb-6">
             <div className="w-full space-y-12 lg:w-1/2 ">
