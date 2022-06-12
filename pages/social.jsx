@@ -22,7 +22,7 @@ import SocialLinks from "../components/SocialLinks";
 export default function Social(props) {
   return (
     <>
-      <section id="contact" className="bg-gray-900 min-h-screen">
+      <section id="social" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
           <div className="w-full mx-auto flex justify-center">
             <div>
