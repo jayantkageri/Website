@@ -17,6 +17,7 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import Image from "next/image";
 import jayantkageri from "../assets/jayantkageri.png";
 
 export default function Home() {
@@ -169,12 +170,22 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
             </div>
 
             <div className="flex object-cover items-center lg:w-1/2 justify-center lg-mt-5 mt-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="w-[20rem] h-[20rem] object-cover xl:w-[31rem] xl:h-[31rem] rounded-full select-none text-white"
-                src={jayantkageri.src}
-                alt="@jayantkageri"
-              />
+              <div className="w-[20rem] h-[20rem] object-cover xl:w-[31rem] xl:h-[31rem] rounded-full select-none text-white">
+                <Image
+                  className="object-cover rounded-full select-none text-white"
+                  src={jayantkageri.src}
+                  alt="@jayantkageri"
+                  width={jayantkageri.width}
+                  height={jayantkageri.height}
+                />
+
+                {/* For Static Build */}
+                {/* <img
+                  className="w-[20rem] h-[20rem] object-cover xl:w-[31rem] xl:h-[31rem] rounded-full select-none text-white"
+                  src={jayantkageri.src}
+                  alt="@jayantkageri"
+                /> */}
+              </div>
             </div>
           </div>
         </div>

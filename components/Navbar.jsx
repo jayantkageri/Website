@@ -18,6 +18,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import jayantkageri from "../assets/jayantkageri.png";
 
@@ -56,11 +57,22 @@ export default function Navbar() {
             <div>
               <Link href={"/"}>
                 <a className="text-2xl font-bold  transition-colors duration-200 transform text-white lg:text-3xl hover: dark:hover:text-gray-300">
-                  <img
-                    src={jayantkageri.src}
-                    alt="Jayant Hegde Kageri"
-                    className="w-14 rounded-full"
-                  />
+                  <div className="w-14 rounded-full">
+                    <Image
+                      src={jayantkageri.src}
+                      alt="Jayant Hegde Kageri"
+                      width={jayantkageri.width}
+                      height={jayantkageri.height}
+                      className="rounded-full"
+                    />
+
+                    {/* For Static Build */}
+                    {/* <img
+                      src={jayantkageri.src}
+                      alt="Jayant Hegde Kageri"
+                      className="w-14 rounded-full"
+                    /> */}
+                  </div>
                 </a>
               </Link>
             </div>
