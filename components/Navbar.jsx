@@ -31,20 +31,15 @@ export default function Navbar() {
       href: "/",
       active: router.pathname === "/",
     },
-    // {
-    //   name: "About",
-    //   href: "/about",
-    //   active: router.pathname === "/about",
-    // },
-    // {
-    //   name: "Skills",
-    //   href: "/skills",
-    //   active: router.pathname === "/skills",
-    // },
     {
       name: "Contact",
       href: "/contact",
       active: router.pathname === "/contact",
+    },
+    {
+      name: "Social",
+      href: "/social",
+      active: router.pathname === "/social",
     },
     {
       name: "Video",

@@ -17,7 +17,7 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 function index(_, res) {
-  // Senging the response
+  // Sending the response
   res.json({ success: true, message: "Application Programming Interface is online." });
 }
 

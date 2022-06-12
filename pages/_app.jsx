@@ -50,6 +50,10 @@ function App({ Component, pageProps }) {
         setInfo({ ...info, page: "Contact" });
         break;
 
+      case "/social":
+        setInfo({ ...info, page: "Social Media" });
+        break;
+
       case "/intro":
         setInfo({ ...info, page: "Intro" });
         break;
