@@ -18,6 +18,7 @@
 
 import React from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
+import Heading from "../components/Heading";
 
 export default function Contact(props) {
   // States for the form.
@@ -131,19 +132,7 @@ export default function Contact(props) {
     <>
       <section id="contact" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
-          <div className="w-full mx-auto flex justify-center">
-            <div>
-              <h1 className="text-3xl font-semibold capitalize lg:text-4xl text-white text-center">
-                Contact <br /> Jayant Hegde Kageri
-              </h1>
-
-              <div className="mt-4 mx-auto flex justify-center">
-                <span className="inline-block w-40 h-1 rounded-full bg-blue-500"></span>
-                <span className="inline-block w-3 h-1 ml-1 rounded-full bg-blue-500"></span>
-                <span className="inline-block w-1 h-1 ml-1 rounded-full bg-blue-500"></span>
-              </div>
-            </div>
-          </div>
+          <Heading title={"Cotnact"} />
 
           <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4">
             <form onSubmit={onSubmit} ref={ref}>

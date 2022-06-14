@@ -24,12 +24,17 @@ export default function SocialLinks(props) {
       <style jsx>{`
         #${props.name}:hover {
           color: ${props.color};
+          border-color: ${props.color};
         }
       `}</style>
 
       <a
         className={
+<<<<<<< HEAD
           "flex flex-row w-full px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 hover:bg-gray-900 hover:border-gray-400 transition-all justify-center hover:translate-x-2 hover:translate-y-0 translate-y-1 cursor-pointer select-none my-2"
+=======
+          "flex flex-row justify-center w-full my-2 px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0"
+>>>>>>> 9b42f28 (Optimizations)
         }
         id={props.name}
         onClick={() => props.ga("social", `Clicked ${props.name} Link`)}
@@ -43,10 +48,13 @@ export default function SocialLinks(props) {
           className="w-6 h-6 mr-1"
           viewBox="0 0 16 16"
         >
-          <path d={props.svg} />
-          {props.svgd && <path d={props.svgd} />}
+          {typeof props.svg === "string" ? (
+            <path d={props.svg} />
+          ) : (
+            props.svg.map((d, index) => <path key={index} d={d} />)
+          )}
         </svg>
-        <span className="text-xl -mt-0.5">{props.name}</span>
+        <span className="-mt-0.5">{props.name}</span>
       </a>
     </>
   );
