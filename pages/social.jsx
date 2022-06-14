@@ -143,7 +143,7 @@ export default function Social(props) {
 
                 <SocialLinks
                   name={"Mail"}
-                  color={"#EA4335"}
+                  color={"#6200EE"}
                   link={"mailto:jayantkageri@gmail.com"}
                   ga={props.addEvent}
                   svg={
