@@ -182,7 +182,7 @@ export default function Contact(props) {
                 />
               </div>
               {process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ? (
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap justify-center">
                   <div className="mt-6 w-1/2 select-none">
                     <HCaptcha
                       sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
@@ -193,7 +193,7 @@ export default function Contact(props) {
                       onExpire={() => setInfo({ ...info, token: null })}
                     />
                   </div>
-                  <div className="flex justify-center mx-10 max-h-16 mt-8">
+                  <div className="flex mx-10 max-h-16 mt-8">
                     <button
                       className="px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
                       type="submit"

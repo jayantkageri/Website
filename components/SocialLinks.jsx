@@ -30,7 +30,7 @@ export default function SocialLinks(props) {
 
       <a
         className={
-          "flex flex-row justify-center w-full my-2 px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0 hover:border-2"
+          "flex flex-row justify-center w-full px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0 hover:border-2"
         }
         id={props.name}
         onClick={() => props.ga("social", `Clicked ${props.name} Link`)}
