@@ -183,7 +183,7 @@ export default function Contact(props) {
               </div>
               {process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ? (
                 <div className="flex flex-wrap justify-center">
-                  <div className="mt-6 w-1/2 select-none">
+                  <div className="flex justify-center mt-6 w-1/2 select-none">
                     <HCaptcha
                       sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
                       theme="dark"
