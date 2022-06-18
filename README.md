@@ -45,7 +45,7 @@ To run this website, you will need to add the following environment variables to
 
 **Client:** NextJS, TailwindCSS, React Toastify
 
-**Server:** NextJS, request-ip
+**Server:** NextJS, request-ip, nodemailer
 
 ## Copyright
 
