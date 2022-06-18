@@ -18,6 +18,113 @@
 
 import requestIp from 'request-ip'
 import { verify } from 'hcaptcha'
+import nodemailer from 'nodemailer'
+
+async function telegram(id, name, email, ip, message) {
+    // Message to be sent to the telegram
+    const msg = `#CONTACT_REQUEST
+    Refrence Number: ${id}
+    Name: ${name}
+    eMail: ${email}
+    IP: ${ip}
+    Message:\n${message}
+    `
+    // Sending the message to the telegram
+    const request = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+            "Accept": "*/*",
+            "Access-Control-Allow-Origin": "*/*",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Content-Type": "application/json"
+        },
+        redirect: "follow",
+        body: JSON.stringify({
+            chat_id: process.env.CHAT_ID,
+            text: msg,
+            disable_web_page_preview: true,
+        })
+    })
+
+    // Await the response of Telegram
+    const response = await request.json()
+
+    // Returning the response to the client
+    return response.ok
+}
+
+async function mail(id, name, email, ip, message) {
+    return new Promise((resolve, reject) => {
+        // Details of the mail
+        const subject = `[JAYANTKAGERI.IN] Contact Request (${id})`
+        const txt = `
+New Contact Request
+You have received a new contact request from ${name}
+
+* Details
+    Refrence Number: ${id}
+    Name: ${name}
+    e-Mail ID: ${email}
+    IP Address: ${ip}
+    Message:
+    ${message}
+`
+
+        const html = `
+<h1>New Contact Request</h1>
+<h2>You have received a new contact request from ${name}</h2>
+<h2><strong>Details</strong></h2>
+
+<ul>
+	<li>Refrence Number: <code>${id}</code></li>
+	<li>Name: <code>${name}</code></li>
+	<li>e-Mail ID: <a href=${`mailto:${email}`}>${email}</a></li>
+	<li>IP Address: <a href=${`https://ipinfo.io/${ip}`}><code>${ip}</code></a></li>
+	<li>Message: <p><code>${message}</code></p>
+	</li>
+</ul>
+    `
+
+        // Creating the transporter
+        const transporter = nodemailer.createTransport({
+            // SMTP Details
+            host: process.env.EMAIL_SMTP,
+            pool: true,
+            port: process.env.EMAIL_PORT || 465,
+            secure: process.env.EMAIL_SECURE || false,
+            auth: {
+                // User Credentials
+                user: process.env.EMAIL_ID,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+            sender: `Jayant Hegde Kageri <${process.env.EMAIL_ID}>`
+        })
+
+        // Verifying the transported is connected to the server
+        transporter.verify(function (error) {
+            // Check if the error is a connection error
+            if (error) {
+                // Reject the promise
+                reject(error)
+            }
+        });
+
+        // Sending the mail
+        transporter.sendMail({
+            from: `Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
+            to: process.env.EMAIL_SEND_TO,
+            replyTo: email,
+            subject: subject,
+            text: txt,
+            html: html
+        }, (error, info) => {
+            if (error) reject(error)
+            resolve(info.response.includes("accepted"))
+        })
+    })
+}
+
 
 async function contact(req, res) {
     // Try the contact function
@@ -46,6 +153,7 @@ async function contact(req, res) {
 
         // Destructuring the request body
         const { name, email, message, token } = req.body
+        const id = Math.floor(Math.random() * 100000000)
 
         // Verifying the captcha if exists
         if (process.env.HCAPTCHA_SECRET) {
@@ -56,40 +164,19 @@ async function contact(req, res) {
             }
         }
 
-        // Message to be sent to the telegram
-        const msg = `#CONTACT_REQUEST
-    Name: ${name}
-    eMail: ${email}
-    IP: ${ip}
-    Message:\n${message}
-    `
+        let response
 
-        // Body for Sending the message to the telegram
-        let bodyContent = JSON.stringify({
-            chat_id: process.env.CHAT_ID,
-            text: msg,
-            disable_web_page_preview: true,
-        });
-
-        // Sending the message to the telegram
-        const request = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: {
-                "Accept": "*/*",
-                "Access-Control-Allow-Origin": "*/*",
-                "Access-Control-Allow-Methods": "*",
-                "Access-Control-Allow-Headers": "*",
-                "Content-Type": "application/json"
-            },
-            redirect: "follow",
-            body: bodyContent
-        })
-
-        // Await the response of Telegram
-        const response = await request.json()
+        if (process.env.BOT_TOKEN) {
+            // Sending the message to the Telegram
+            response = await telegram(id, name, email, ip, message)
+        }
+        if (process.env.EMAIL_ID) {
+            // Sending the message to email id
+            response = await mail(id, name, email, ip, message)
+        }
 
         // Sending the response to the client
-        return res.status(201).send({ success: true, sent: response.ok })
+        return res.status(201).send({ success: true, sent: response })
     } catch (err) {
         // If any error occurs, sending the error to the client
         return res.status(500).send({ success: false, message: err.message })

@@ -105,7 +105,7 @@ export default function Contact(props) {
       // Send data to Google Analytics.
       props.addEvent(
         "contact",
-        "jayantkageri.in - Intenrnal Server Error while sending message to Telegram"
+        "jayantkageri.in - Intenrnal Server Error while sending message"
       );
       // Reset the form.
       ref.current.reset();
