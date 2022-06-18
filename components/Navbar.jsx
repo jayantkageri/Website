@@ -23,8 +23,8 @@ import { useRouter } from "next/router";
 import jayantkageri from "../assets/jayantkageri.png";
 
 export default function Navbar() {
-  const menu = React.useRef();
   const router = useRouter();
+  const [info, setInfo] = React.useState({ menu_open: false });
 
   const navigation = [
     {
@@ -48,6 +48,13 @@ export default function Navbar() {
       active: router.pathname === "/intro",
     },
   ];
+
+  const handleMenuClick = (e) => {
+    // Prevent default behavior of browser (if any)
+    e.preventDefault();
+    // Toggle menu_open state
+    setInfo({ ...info, menu_open: !info.menu_open });
+  };
 
   return (
     <>
@@ -80,31 +87,37 @@ export default function Navbar() {
             <div className="flex md:hidden">
               <button
                 type="button"
-                className="text-gray-200 hover:text-gray-400 focus:outline-none focus:text-gray-400"
+                className="text-gray-200 hover:text-gray-400 focus:outline-none focus:text-gray-400 transition-all"
                 aria-label="toggle menu"
-                onClick={() => {
-                  if (menu.current.classList.contains("hidden")) {
-                    return menu.current.classList.remove("hidden");
-                  }
-                  return menu.current.classList.add("hidden");
-                }}
+                onClick={handleMenuClick}
               >
-                <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
-                  <path
-                    fillRule="evenodd"
-                    d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
-                  ></path>
-                </svg>
+                {!info.menu_open ? (
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+                    <path
+                      fillRule="evenodd"
+                      d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"
+                    ></path>
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                  </svg>
+                )}
               </button>
             </div>
           </div>
 
           <div
-            className="items-center md:flex transition-transform transform md:flex-center p-4 hidden md:border-0 md:mt-0 border-t mt-3"
-            ref={menu}
+            className="items-center md:flex transition-transform transform md:flex-center p-4 md:border-0 md:mt-0 border-t mt-3"
+            hidden={!info.menu_open}
             onClick={() => {
-              !menu.current.classList.contains("hidden") &&
-                menu.current.classList.add("hidden");
+              setInfo({ ...info, menu_open: !info.menu_open });
             }}
           >
             <div className="flex flex-col md:flex-row md:mx-6 transition-transform">
