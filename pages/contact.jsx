@@ -132,7 +132,7 @@ export default function Contact(props) {
     <>
       <section id="contact" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
-          <Heading title={"Cotnact"} />
+          <Heading title={"Contact"} />
 
           <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4">
             <form onSubmit={onSubmit} ref={ref}>
