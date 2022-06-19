@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022  Jayant Hegde Kageri
+// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -18,7 +18,7 @@
 
 import requestIp from 'request-ip'
 import { verify } from 'hcaptcha'
-import nodemailer from 'nodemailer'
+import { createTransport } from 'nodemailer'
 
 async function telegram(id, name, email, ip, message) {
     // Message to be sent to the telegram
@@ -87,7 +87,7 @@ You have received a new contact request from ${name}
     `
 
         // Creating the transporter
-        const transporter = nodemailer.createTransport({
+        const transporter = createTransport({
             // SMTP Details
             host: process.env.EMAIL_SMTP,
             pool: true,

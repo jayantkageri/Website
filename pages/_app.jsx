@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022  Jayant Hegde Kageri
+// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -37,6 +37,22 @@ function App({ Component, pageProps }) {
 
   // Next Router
   const router = useRouter();
+
+  // AGPL-3.0-or-later License Notice
+  if (!info.notice) {
+    console.info("Website of jayantkageri, NextJS Site for jayantkageri.in");
+    console.info(
+      "Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>"
+    );
+    console.info(
+      "This website is licensed under GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)."
+    );
+    console.info(
+      "You can find the source code at https://links.jayantkageri.in/source-code"
+    );
+
+    setInfo({ ...info, notice: true });
+  }
 
   React.useEffect(() => {
     // Check the user if he has accepted the cookies.
