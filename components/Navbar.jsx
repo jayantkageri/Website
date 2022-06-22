@@ -63,7 +63,10 @@ export default function Navbar() {
           <div className="flex items-center justify-between">
             <div>
               <Link href={"/"}>
-                <a className="text-2xl font-bold  transition-colors duration-200 transform text-white lg:text-3xl hover: dark:hover:text-gray-300">
+                <a
+                  className="text-2xl font-bold  transition-colors duration-200 transform text-white lg:text-3xl hover: dark:hover:text-gray-300"
+                  tabIndex={-1}
+                >
                   <div className="w-14 rounded-full">
                     <Image
                       src={jayantkageri.src}

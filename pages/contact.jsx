@@ -134,7 +134,7 @@ export default function Contact(props) {
         <div className="container px-6 py-10 mx-auto">
           <Heading title={"Contact"} />
 
-          <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4">
+          <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4 select-none">
             <form onSubmit={onSubmit} ref={ref}>
               <div className="-mx-2 md:flex">
                 <div className="w-full mx-2">

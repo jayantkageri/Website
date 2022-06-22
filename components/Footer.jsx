@@ -25,7 +25,10 @@ export default function Footer() {
     <>
       <footer className="flex flex-col items-center justify-between px-6 py-4 border-t bg-gray-900 border-gray-700 sm:flex-row select-none">
         <Link href={"/"}>
-          <a className="text-xl font-bold text-white hover:text-indigo-600 transition-all">
+          <a
+            className="text-xl font-bold text-white hover:text-indigo-600 transition-all"
+            tabIndex={-1}
+          >
             Jayant Hegde Kageri
           </a>
         </Link>
