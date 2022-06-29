@@ -19,6 +19,24 @@
 import requestIp from 'request-ip'
 import { verify } from 'hcaptcha'
 import { createTransport } from 'nodemailer'
+import dns from "dns"
+
+async function emailValidation(email) {
+    return new Promise((resolve, reject) => {
+        // Regex Expression to check if the email is valid
+        const eMailRegex =
+            /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+        // Check if the email is valid
+        if (!eMailRegex.test(email)) return resolve(false);
+
+        // Verify that the email domain is valid
+        dns.resolveMx(email.toString().split("@")[1], (err, res) => {
+            if (!err && res.length >= 1) return resolve(true);
+            return resolve(false);
+        })
+    })
+}
 
 async function telegram(id, name, email, ip, message) {
     // Message to be sent to the telegram
@@ -146,6 +164,10 @@ async function contact(req, res) {
             process.env.HCAPTCHA_SECRET && !req.body.token
         ) {
             return res.status(400).send({ success: false, message: "Bad Request" })
+        }
+
+        if (!await emailValidation(req.body.email)) {
+            return res.status(400).send({ success: false, message: "Invalid eMail ID" })
         }
 
         // Getting the Client IP
