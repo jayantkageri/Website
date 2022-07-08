@@ -33,14 +33,14 @@ export default function Navbar() {
       active: router.pathname === "/",
     },
     {
-      name: "Contact",
-      href: "/contact",
-      active: router.pathname === "/contact",
-    },
-    {
       name: "Social",
       href: "/social",
       active: router.pathname === "/social",
+    },
+    {
+      name: "Contact",
+      href: "/contact",
+      active: router.pathname === "/contact",
     },
     {
       name: "Video",
