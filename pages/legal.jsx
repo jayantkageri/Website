@@ -38,7 +38,7 @@ export default function Legal() {
           </h4>
         </div>
 
-        <div className="flex flex-col justify-start px-16 text-white">
+        <div className="flex flex-col justify-start px-5 text-white">
           <p className="text-gray-300 italic">
             This document is an electronic record in terms of the Information
             Technology Act, 2000 (&quot;IT Act&quot;) and rules thereunder, and
@@ -54,7 +54,7 @@ export default function Legal() {
             <h2 className="py-5 text-4xl font-semibold text-start">
               Terms and Conditions
             </h2>
-            <ul className="list-decimal px-8 space-y-8 text-slate-100">
+            <ul className="list-decimal px-6 space-y-8 text-slate-100">
               <li>
                 <h3 className="text-2xl font-medium">Services</h3>
                 <ul className="list-disc px-10 space-y-2">
@@ -68,7 +68,7 @@ export default function Legal() {
                   </li>
                   <li>
                     <h3 className="text-lg">Manner of Use, You may not:</h3>
-                    <ul className="list-[lower-roman] px-12 space-y-2 text-gray-200">
+                    <ul className="list-[lower-roman] pl-8 space-y-2 text-gray-200">
                       <li>
                         Reverse engineer, Decompile, Disassemble or work around
                         technical limitations in the Services, except to the
