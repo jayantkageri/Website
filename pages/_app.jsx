@@ -74,6 +74,9 @@ function App({ Component, pageProps }) {
         setInfo({ ...info, page: "Intro" });
         break;
 
+      case "/legal":
+        setInfo({ ...info, page: "Legal" });
+
       case "/":
         setInfo({ ...info, page: undefined });
         break;

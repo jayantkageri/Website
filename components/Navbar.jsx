@@ -47,6 +47,11 @@ export default function Navbar() {
       href: "/intro",
       active: router.pathname === "/intro",
     },
+    {
+      name: "Legal",
+      href: "/legal",
+      active: router.pathname === "/legal",
+    },
   ];
 
   const handleMenuClick = (e) => {
