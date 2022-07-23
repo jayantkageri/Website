@@ -24,15 +24,14 @@ import dns from "dns"
 async function emailValidation(email) {
     return new Promise((resolve, reject) => {
         // Regex Expression to check if the email is valid
-        const eMailRegex =
-            /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        const eMailRegex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
         // Check if the email is valid
         if (!eMailRegex.test(email)) return resolve(false);
 
         // Verify that the email domain is valid
         dns.resolveMx(email.toString().split("@")[1], (err, res) => {
-            if (!err && res.length >= 1) return resolve(true);
+            if (!err && res.length >= 1) return resolve(res.length <= 1 ? Boolean(res[0].exchange) : true);
             return resolve(false);
         })
     })
@@ -81,27 +80,50 @@ New Contact Request
 You have received a new contact request from ${name}
 
 * Details
-    Refrence Number: ${id}
-    Name: ${name}
-    e-Mail ID: ${email}
-    IP Address: ${ip}
-    Message:
+    - Refrence Number: ${id}
+    - Name: ${name}
+    - e-Mail ID: ${email}
+    - IP Address: ${ip}
+    - Message:
     ${message}
 `
 
         const html = `
 <h1>New Contact Request</h1>
-<h2>You have received a new contact request from ${name}</h2>
-<h2><strong>Details</strong></h2>
 
-<ul>
-	<li>Refrence Number: <code>${id}</code></li>
-	<li>Name: <code>${name}</code></li>
-	<li>e-Mail ID: <a href=${`mailto:${email}`}>${email}</a></li>
-	<li>IP Address: <a href=${`https://ipinfo.io/${ip}`}><code>${ip}</code></a></li>
-	<li>Message: <p><code>${message}</code></p>
-	</li>
-</ul>
+<h1 style="text-align:justify"><span style="font-size:18px">
+    You have received a new contact request from ${name}
+</span></h1>
+
+<h2 style="margin-left:40px"><span style="font-size:20px"><strong>
+    Details
+</strong></span></h2>
+
+    <ul style="margin-left:40px">
+        <li><span style="font-size:14px">
+            Reference Number: <code>${id}
+        </code></span></li>
+        
+        <li><span style="font-size:14px">
+            Name: <code>${name}</code>
+        </span></li>
+        
+        <li><span style="font-size:14px">
+            e-Mail ID: <a href="${`mailto:${email}`}">${email}</a>
+        </span></li>
+        
+        <li><span style="font-size:14px">
+            IP Address: <a href="${`https://ipinfo.io/${ip}`}"><code>${ip}</code></a>
+        </span></li>
+        
+        <li>
+            <span style="font-size:14px">Message:</span>
+            <p><span style="font-size:14px">
+                <code>${message}</code>
+            </span></p>
+        </li>
+    </ul>
+
     `
 
         // Creating the transporter
@@ -151,23 +173,15 @@ async function contact(req, res) {
             return res.status(405).send("Method not Allowed")
         }
 
-        // Regex Expression to check if the email is valid
-        const eMailRegex =
-            /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
         // Validations
         if (
             !req.body.name ||
             !req.body.email ||
-            !req.body.email.toString().toLowerCase().match(eMailRegex) ||
+            !await emailValidation(req.body.email) ||
             !req.body.message ||
             process.env.HCAPTCHA_SECRET && !req.body.token
         ) {
             return res.status(400).send({ success: false, message: "Bad Request" })
-        }
-
-        if (!await emailValidation(req.body.email)) {
-            return res.status(400).send({ success: false, message: "Invalid eMail ID" })
         }
 
         // Getting the Client IP

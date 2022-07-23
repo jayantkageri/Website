@@ -18,8 +18,8 @@
 
 import React from "react";
 import ReactGA from "react-ga";
-import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -37,6 +37,44 @@ function App({ Component, pageProps }) {
 
   // Next Router
   const router = useRouter();
+
+  // Google Analytics
+  class GoogleAnalytics {
+    static gaID = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+
+    static initialize = () => {
+      if (this.gaID) {
+        ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+        ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, {
+          standardImplementation: true,
+          redactEmail: false,
+          useExistingGa: true,
+        });
+        ReactGA.set({ page: router.pathname });
+      }
+    };
+
+    static addEvent = (category, action) => {
+      if (this.gaID) {
+        ReactGA.event({ category, action });
+      }
+    };
+
+    static outboundLink = (url) => {
+      if (this.gaID) {
+        ReactGA.outboundLink({ label: url }, () => {
+          return;
+        });
+      }
+    };
+
+    static pageview = (page) => {
+      if (this.gaID) {
+        ReactGA.set({ page });
+        ReactGA.pageview(page);
+      }
+    };
+  }
 
   // AGPL-3.0-or-later License Notice
   if (!info.notice) {
@@ -60,6 +98,12 @@ function App({ Component, pageProps }) {
       !localStorage.getItem("cookies") &&
       setInfo({ ...info, cookies: false });
 
+    // Initialize Google Analytics
+    GoogleAnalytics.initialize();
+
+    // Add pageview to Google Analytics
+    GoogleAnalytics.pageview(router.pathname);
+
     // Title for the page.
     switch (router.pathname) {
       case "/contact":
@@ -76,6 +120,7 @@ function App({ Component, pageProps }) {
 
       case "/legal":
         setInfo({ ...info, page: "Legal" });
+        break;
 
       case "/":
         setInfo({ ...info, page: undefined });
@@ -86,20 +131,6 @@ function App({ Component, pageProps }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
-
-  // Initialize Google Analytics.
-  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
-    ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
-
-  // Send pageview to Google Analytics.
-  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
-    ReactGA.pageview(router.pathname);
-
-  // Easy function to add an event to Google Analytics.
-  const addEvent = (category, action) => {
-    process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID &&
-      ReactGA.event({ category, action });
-  };
 
   return (
     <>
@@ -132,7 +163,11 @@ function App({ Component, pageProps }) {
         )}
 
         {/* Main content of the page */}
-        <Component {...pageProps} alert={alert} addEvent={addEvent} />
+        <Component
+          {...pageProps}
+          alert={alert}
+          GoogleAnalytics={GoogleAnalytics}
+        />
       </main>
       {/* Footer */}
       <Footer />

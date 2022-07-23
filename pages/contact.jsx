@@ -33,8 +33,9 @@ export default function Contact(props) {
   };
 
   // Regex Expression for the email validation.
-  const eMailRegex =
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const eMailRegex = new RegExp(
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  );
 
   // Handling the form submission.
   const onSubmit = async (e) => {
@@ -50,7 +51,7 @@ export default function Contact(props) {
     }
 
     // eMail Validation
-    if (!info.email.toString().toLowerCase().match(eMailRegex)) {
+    if (!eMailRegex.test(info.email.toString().toLowerCase())) {
       setInfo({ ...info, loading: false });
       return props.alert("error", "Please enter a valid email");
     }
@@ -58,7 +59,7 @@ export default function Contact(props) {
     // Captcha Validation
     if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info.token) {
       // Sending data to Google Analytics.
-      props.addEvent(
+      props.GoogleAnalytics.addEvent(
         "contact",
         "jayantkageri.in - Tried to send message without completing captcha"
       );
@@ -87,7 +88,10 @@ export default function Contact(props) {
     // Exceptions for error.
     if (!data.success && data.message) {
       // Send data to Google Analytics.
-      props.addEvent("contact", `jayantkageri.in - error: ${data.message}`);
+      props.GoogleAnalytics.addEvent(
+        "contact",
+        `jayantkageri.in - error: ${data.message}`
+      );
 
       // Reset the form.
       setInfo({});
@@ -103,7 +107,7 @@ export default function Contact(props) {
     if (!data.sent) {
       setInfo({});
       // Send data to Google Analytics.
-      props.addEvent(
+      props.GoogleAnalytics.addEvent(
         "contact",
         "jayantkageri.in - Intenrnal Server Error while sending message"
       );
@@ -117,7 +121,10 @@ export default function Contact(props) {
     }
 
     // Send data to Google Analytics.
-    props.addEvent("contact", "jayantkageri.in - submitted a contact request");
+    props.GoogleAnalytics.addEvent(
+      "contact",
+      "jayantkageri.in - submitted a contact request"
+    );
     // Reset the form.
     setInfo({});
     ref.current.reset();
