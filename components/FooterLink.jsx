@@ -22,6 +22,7 @@ export default function FooterLink(props) {
   return (
     <a
       href={props.link}
+      onClick={() => props.ga(props.link)}
       target={"_blank"}
       rel="noreferrer"
       className="mx-2 text-gray-300 hover:text-indigo-600 transition-colors"

@@ -17,6 +17,7 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import banner from "../assets/banner.png";
 
 export default function Video(props) {
   return (
@@ -29,12 +30,16 @@ export default function Video(props) {
                 <div className="w-full">
                   <video
                     className="w-full h-full rounded"
+                    poster={banner.src}
                     controls
                     // Disable Playback Speed Option
                     controlsList={"noplaybackrate"}
                     onPlay={() => {
                       // Send data to Google Analytics.
-                      props.addEvent("video", "jayantkageri.in - video played");
+                      props.GoogleAnalytics.addEvent(
+                        "video",
+                        "jayantkageri.in - video played"
+                      );
                     }}
                   >
                     <source

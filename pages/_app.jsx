@@ -40,37 +40,54 @@ function App({ Component, pageProps }) {
 
   // Google Analytics
   class GoogleAnalytics {
-    static gaID = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+    // Checking if the Google Analytics is enabled.
+    static gaEnabled = Boolean(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
 
+    // Initializing the Google Analytics.
     static initialize = () => {
-      if (this.gaID) {
+      // Conditions
+      if (this.gaEnabled) {
+        // Initializing the Google Analytics.
         ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+
         ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, {
           standardImplementation: true,
           redactEmail: false,
           useExistingGa: true,
         });
+
+        // Setting the Custom Dimension.
         ReactGA.set({ page: router.pathname });
       }
     };
 
+    // Logging an Event.
     static addEvent = (category, action) => {
-      if (this.gaID) {
+      // Conditions
+      if (this.gaEnabled) {
+        // Logging the Event.
         ReactGA.event({ category, action });
       }
     };
 
+    // Logging a Outbound Link.
     static outboundLink = (url) => {
-      if (this.gaID) {
+      // Conditions
+      if (this.gaEnabled) {
+        // Logging the Outbound Link.
         ReactGA.outboundLink({ label: url }, () => {
           return;
         });
       }
     };
 
+    // Logging a Pageview.
     static pageview = (page) => {
-      if (this.gaID) {
+      // Conditions
+      if (this.gaEnabled) {
+        // Custom Dimension
         ReactGA.set({ page });
+        // Logging the Pageview.
         ReactGA.pageview(page);
       }
     };
@@ -80,7 +97,11 @@ function App({ Component, pageProps }) {
   if (!info.notice) {
     console.info("Website of jayantkageri, NextJS Site for jayantkageri.in");
     console.info(
-      "Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>"
+      `Copyright (C) ${
+        new Date().getFullYear() === 2021
+          ? 2021
+          : `2021 - ${new Date().getFullYear()}`
+      } Jayant Hegde Kageri <https://github.com/jayantkageri>`
     );
     console.info(
       "This website is licensed under GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)."
@@ -140,7 +161,6 @@ function App({ Component, pageProps }) {
       <Navbar />
       {/* React Toastify */}
       <ToastContainer />
-
       <main className="bg-gray-900 min-h-screen">
         {/* Cookies accepting section */}
         {!info.cookies && (
@@ -170,7 +190,7 @@ function App({ Component, pageProps }) {
         />
       </main>
       {/* Footer */}
-      <Footer />
+      <Footer GoogleAnalytics={GoogleAnalytics} />
     </>
   );
 }

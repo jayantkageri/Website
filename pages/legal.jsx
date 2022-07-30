@@ -25,7 +25,7 @@ export default function Legal() {
       <section id="legal" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
           <Heading title={"Legal"} />
-          <h4 className="text-lg italic text-gray-300 select-none">
+          <h4 className="text-lg italic text-gray-300 pt-2 select-none">
             The PDF Version of this page can be found{" "}
             <a
               className="text-blue-500"
