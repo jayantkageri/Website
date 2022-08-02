@@ -22,7 +22,7 @@ import { createTransport } from 'nodemailer'
 import dns from "dns"
 
 async function emailValidation(email) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         // Regex Expression to check if the email is valid
         const eMailRegex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 
@@ -38,6 +38,7 @@ async function emailValidation(email) {
 }
 
 async function telegram(id, name, email, ip, message) {
+    if (!process.env.BOT_TOKEN) return false
     // Message to be sent to the telegram
     const msg = `#CONTACT_REQUEST
     Refrence Number: ${id}
@@ -73,6 +74,8 @@ async function telegram(id, name, email, ip, message) {
 
 async function mail(id, name, email, ip, message) {
     return new Promise((resolve, reject) => {
+        if (!process.env.EMAIL_ID || !process.env.EMAIL_PASSWORD || !process.env.EMAIL_SMTP) return resolve(false)
+
         // Details of the mail
         const subject = `[JAYANTKAGERI.IN] Contact Request (${id})`
         const txt = `
@@ -184,35 +187,36 @@ async function contact(req, res) {
             return res.status(400).send({ success: false, message: "Bad Request" })
         }
 
-        // Getting the Client IP
-        const ip = requestIp.getClientIp(req)
-
-        // Destructuring the request body
-        const { name, email, message, token } = req.body
-        const id = Math.floor(Math.random() * 100000000)
-
         // Verifying the captcha if exists
         if (process.env.HCAPTCHA_SECRET) {
-            const data = await verify(process.env.HCAPTCHA_SECRET, token)
+            const data = await verify(process.env.HCAPTCHA_SECRET, req.body.token)
             if (!data.success) {
                 // If not captcha verified, return error
                 return res.status(400).send({ success: false, message: data['error-codes'] })
             }
         }
 
-        let response
+        // Getting the Client IP
+        const ip = requestIp.getClientIp(req)
+
+        // Destructuring the request body
+        const { name, email, message } = req.body
+        const id = Math.floor(Math.random() * 100000000)
+
+
+        let response = {}
 
         if (process.env.BOT_TOKEN) {
             // Sending the message to the Telegram
-            response = await telegram(id, name, email, ip, message)
+            response = { ...response, telegram: await telegram(id, name, email, ip, message) }
         }
         if (process.env.EMAIL_ID) {
-            // Sending the message to email id
-            response = await mail(id, name, email, ip, message)
+            // Sending the message to Email ID
+            response = { ...response, email: await mail(id, name, email, ip, message) }
         }
 
         // Sending the response to the client
-        return res.status(201).send({ success: true, sent: response })
+        return res.status(201).send({ success: true, type: response, sent: response.email || response.telegram })
     } catch (err) {
         // If any error occurs, sending the error to the client
         return res.status(500).send({ success: false, message: err.message })
