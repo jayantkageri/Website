@@ -28,7 +28,7 @@ To run this website, you will need to add the following environment variables to
 
 * `HCAPTCHA_SECRET` **optional** - hCaptcha Secret for verifying the response
 
-* `NEXT_PUBLIC_GOOGLE_ANALYTICS_ID` **optional** - Google Analytics Tracking ID
+* `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` **optional** - Google Tag Manager Tracking ID
 
 * Enviorment variables for notifing contact request from [Telegram Bot](https://telegram.me/BotFather):
   * `BOT_TOKEN` **required** - Telegram Bot token obtained in [@BotFather](https://telegram.me/BotFather)
