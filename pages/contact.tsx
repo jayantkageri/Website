@@ -20,9 +20,17 @@ import React from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import Heading from "../components/Heading";
 
-export default function Contact(props: {toastify: {alert: Function, loading: Function, update: Function}}) {
+export default function Contact(props: {
+  toastify: { alert: Function; loading: Function; update: Function };
+}) {
   // States for the form.
-  const [info, setInfo] = React.useState<{name?: string, email?: string, message?: string, loading?: boolean, token?: string|null}>();
+  const [info, setInfo] = React.useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+    loading?: boolean;
+    token?: string | null;
+  }>();
   // Refrences for form and hCaptcha.
   const ref = React.useRef<HTMLFormElement>();
   const hcaptcha = React.useRef<HCaptcha>();
@@ -39,7 +47,9 @@ export default function Contact(props: {toastify: {alert: Function, loading: Fun
   );
 
   // Handling the form submission.
-  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     // Preventing the default form submission action of HTML.
     e.preventDefault();
     // Set loading to true.
@@ -49,13 +59,21 @@ export default function Contact(props: {toastify: {alert: Function, loading: Fun
     // Validation
     if (!info?.name || !info?.email || !info?.message) {
       setInfo({ ...info, loading: false });
-      return props.toastify.update(toast, "error", "Please fill all the fields");
+      return props.toastify.update(
+        toast,
+        "error",
+        "Please fill all the fields"
+      );
     }
 
     // eMail Validation
     if (!eMailRegex.test(info.email.toString().toLowerCase())) {
       setInfo({ ...info, loading: false });
-      return props.toastify.update(toast, "error", "Please enter a valid email");
+      return props.toastify.update(
+        toast,
+        "error",
+        "Please enter a valid email"
+      );
     }
 
     // Captcha Validation
@@ -80,23 +98,22 @@ export default function Contact(props: {toastify: {alert: Function, loading: Fun
 
     // Awaiting the response
     type DataType = {
-        success: boolean,
-        sent?: boolean,
-        type?: Object,
-        message?: string,
-    }
+      success: boolean;
+      sent?: boolean;
+      type?: Object;
+      message?: string;
+    };
     const res: DataType = await req.json();
 
     // Exceptions for error.
     if (!res.success && res.message) {
       // Reset the form.
       setInfo({
-            name: "",
-            email: "",
-            message: "",
-            loading: false,
-            token: null
-
+        name: "",
+        email: "",
+        message: "",
+        loading: false,
+        token: null,
       });
       ref?.current?.reset();
       // Reset the captcha.
@@ -135,6 +152,7 @@ export default function Contact(props: {toastify: {alert: Function, loading: Fun
           <Heading title={"Contact"} />
 
           <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4 select-none">
+            {/* @ts-ignore */}
             <form onSubmit={onSubmit} ref={ref}>
               <div className="-mx-2 md:flex">
                 <div className="w-full mx-2">
@@ -188,6 +206,7 @@ export default function Contact(props: {toastify: {alert: Function, loading: Fun
                       sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
                       theme="dark"
                       size="normal"
+                      // @ts-ignore
                       ref={hcaptcha}
                       onVerify={(token) => setInfo({ ...info, token: token })}
                       onExpire={() => setInfo({ ...info, token: null })}

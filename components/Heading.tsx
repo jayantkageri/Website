@@ -18,7 +18,7 @@
 
 import React from "react";
 
-export default function Heading(props: {title: string}) {
+export default function Heading(props: { title: string }) {
   return (
     <div className="w-full mx-auto flex justify-center">
       <div>

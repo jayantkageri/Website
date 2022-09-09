@@ -19,7 +19,7 @@
 import React from "react";
 
 export default function Error() {
-  const [info, setInfo] = React.useState<{code: number, message: string}>();
+  const [info, setInfo] = React.useState<{ code: number; message: string }>();
 
   // Hyderation Error
   React.useEffect(() => {

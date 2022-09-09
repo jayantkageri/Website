@@ -162,8 +162,8 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
                   </h1>
 
                   <p className="mt-3 text-gray-300">
-                    Whether a mobile or desktop client, I can build a fully
-                    responsive website for all the devices.
+                    Whether a mobile client or desktop client, I can build a
+                    fully responsive website for all devices.
                   </p>
                 </div>
               </div>

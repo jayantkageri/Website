@@ -846,6 +846,7 @@ You have received a new contact request from ${name}
 
         // Creating the transporter
         const transporter = createTransport({
+            // @ts-ignore
             // SMTP Details
             host: process.env.EMAIL_SMTP,
             pool: true,
@@ -888,18 +889,22 @@ async function contact(req: NextApiRequest, res: NextApiResponse) {
     // Try the contact function
     try {
         if (req?.method?.toString().toUpperCase() !== "POST") {
-            return res.status(405).send("Method not Allowed")
+            return res.status(405).send("")
         }
 
         // Validations
         if (
             !req.body.name ||
             !req.body.email ||
-            !await emailValidation(req.body.email) ||
+            !req.body.email ||
             !req.body.message ||
             process.env.HCAPTCHA_SECRET && !req.body.token
         ) {
             return res.status(400).send({ success: false, message: "Bad Request" })
+        }
+
+        if (!await emailValidation(req.body.email)) {
+            return res.status(400).send({ success: false, message: "Invalid Email ID" })
         }
 
         // Verifying the captcha if exists

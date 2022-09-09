@@ -18,7 +18,6 @@
 
 import React from "react";
 import Heading from "../components/Heading";
-import SocialLinks from "../components/SocialLinks";
 
 export default function Social() {
   return (
@@ -143,6 +142,51 @@ export default function Social() {
           </div>
         </div>
       </section>
+    </>
+  );
+}
+
+function SocialLinks(props: {
+  name: string;
+  link: string;
+  color: string;
+  svg: string | string[];
+}) {
+  return (
+    <>
+      {/* eslint-disable-next-line react/no-unknown-property */}
+      <style jsx>{`
+        #${props.name}:hover {
+          color: ${props.color};
+          border-color: ${props.color};
+        }
+      `}</style>
+
+      <a
+        className={
+          "flex flex-row justify-center w-full px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0 hover:border-2"
+        }
+        id={props.name}
+        href={props.link}
+        target={"_blank"}
+        rel="noreferrer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          className="w-6 h-6 mr-1"
+          viewBox="0 0 16 16"
+        >
+          {typeof props.svg === "string" ? (
+            <path d={props.svg} />
+          ) : (
+            props.svg.map((d: string, index: number) => (
+              <path key={index} d={d} />
+            ))
+          )}
+        </svg>
+        <span className="-mt-0.5">{props.name}</span>
+      </a>
     </>
   );
 }
