@@ -87,7 +87,7 @@ You have received a new contact request from ${name}
     - Refrence Number: ${id}
     - Name: ${name}
     - e-Mail ID: ${email}
-    - IP Address: ${ip}
+    - IP Address: ${ip} [https://ipinfo.io/${ip}]
     - Message:
     ${message}
 `
@@ -95,7 +95,8 @@ You have received a new contact request from ${name}
         const html = `
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
+    style="font-family:Nunito, Roboto, sans-serif">
 
 <head>
     <meta charset="UTF-8">
@@ -103,24 +104,14 @@ You have received a new contact request from ${name}
     <meta name="x-apple-disable-message-reformatting">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="telephone=no" name="format-detection">
-    <title>Jayant Hegde Kageri</title>
+    <title>Contact Request ${id}</title>
     <!--[if (mso 16)]><style type="text/css"> a {text-decoration: none;} </style><![endif]-->
     <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
     <!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]-->
     <!--[if !mso]><!-- -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap" rel="stylesheet">
     <!--<![endif]-->
     <style type="text/css">
-        .rollover:hover .rollover-first {
-            max-height: 0px !important;
-            display: none !important;
-        }
-
-        .rollover:hover .rollover-second {
-            max-height: none !important;
-            display: block !important;
-        }
-
         #outlook a {
             padding: 0;
         }
@@ -149,21 +140,9 @@ You have received a new contact request from ${name}
             mso-hide: all;
         }
 
-        .es-button-border:hover {
-            border-style: solid solid solid solid !important;
-            background: #0b317e !important;
-            border-color: #42d159 #42d159 #42d159 #42d159 !important;
-        }
-
-        .es-button-border:hover a.es-button,
-        .es-button-border:hover button.es-button {
-            background: #0b317e !important;
-            border-color: #0b317e !important;
-        }
-
         [data-ogsb] .es-button {
             border-width: 0 !important;
-            padding: 10px 20px 10px 20px !important;
+            padding: 10px 40px 10px 40px !important;
         }
 
         @media only screen and (max-width:600px) {
@@ -181,7 +160,7 @@ You have received a new contact request from ${name}
             h1 a,
             h2 a,
             h3 a {
-                line-height: 120% !important
+                line-height: 120%
             }
 
             h1 {
@@ -199,33 +178,16 @@ You have received a new contact request from ${name}
                 text-align: center
             }
 
-            .st-br {
-                padding-left: 10px !important;
-                padding-right: 10px !important
-            }
-
-            h1 a {
-                text-align: center
-            }
-
             .es-header-body h1 a,
             .es-content-body h1 a,
             .es-footer-body h1 a {
                 font-size: 30px !important
             }
 
-            h2 a {
-                text-align: center
-            }
-
             .es-header-body h2 a,
             .es-content-body h2 a,
             .es-footer-body h2 a {
                 font-size: 26px !important
-            }
-
-            h3 a {
-                text-align: center
             }
 
             .es-header-body h3 a,
@@ -235,7 +197,7 @@ You have received a new contact request from ${name}
             }
 
             .es-menu td a {
-                font-size: 14px !important
+                font-size: 16px !important
             }
 
             .es-header-body p,
@@ -256,7 +218,7 @@ You have received a new contact request from ${name}
             .es-footer-body ul li,
             .es-footer-body ol li,
             .es-footer-body a {
-                font-size: 14px !important
+                font-size: 16px !important
             }
 
             .es-infoblock p,
@@ -303,7 +265,7 @@ You have received a new contact request from ${name}
 
             a.es-button,
             button.es-button {
-                font-size: 16px !important;
+                font-size: 20px !important;
                 display: block !important;
                 border-left-width: 0px !important;
                 border-right-width: 0px !important
@@ -336,19 +298,19 @@ You have received a new contact request from ${name}
             }
 
             .es-m-p0 {
-                padding: 0 !important
+                padding: 0px !important
             }
 
             .es-m-p0r {
-                padding-right: 0 !important
+                padding-right: 0px !important
             }
 
             .es-m-p0l {
-                padding-left: 0 !important
+                padding-left: 0px !important
             }
 
             .es-m-p0t {
-                padding-top: 0 !important
+                padding-top: 0px !important
             }
 
             .es-m-p0b {
@@ -386,6 +348,10 @@ You have received a new contact request from ${name}
                 display: table-cell !important
             }
 
+            .es-menu td {
+                width: 1% !important
+            }
+
             table.es-table-not-adapt,
             .esd-block-html table {
                 width: auto !important
@@ -399,162 +365,6 @@ You have received a new contact request from ${name}
                 display: inline-block !important
             }
 
-            .es-m-p5 {
-                padding: 5px !important
-            }
-
-            .es-m-p5t {
-                padding-top: 5px !important
-            }
-
-            .es-m-p5b {
-                padding-bottom: 5px !important
-            }
-
-            .es-m-p5r {
-                padding-right: 5px !important
-            }
-
-            .es-m-p5l {
-                padding-left: 5px !important
-            }
-
-            .es-m-p10 {
-                padding: 10px !important
-            }
-
-            .es-m-p10t {
-                padding-top: 10px !important
-            }
-
-            .es-m-p10b {
-                padding-bottom: 10px !important
-            }
-
-            .es-m-p10r {
-                padding-right: 10px !important
-            }
-
-            .es-m-p10l {
-                padding-left: 10px !important
-            }
-
-            .es-m-p15 {
-                padding: 15px !important
-            }
-
-            .es-m-p15t {
-                padding-top: 15px !important
-            }
-
-            .es-m-p15b {
-                padding-bottom: 15px !important
-            }
-
-            .es-m-p15r {
-                padding-right: 15px !important
-            }
-
-            .es-m-p15l {
-                padding-left: 15px !important
-            }
-
-            .es-m-p20 {
-                padding: 20px !important
-            }
-
-            .es-m-p20t {
-                padding-top: 20px !important
-            }
-
-            .es-m-p20r {
-                padding-right: 20px !important
-            }
-
-            .es-m-p20l {
-                padding-left: 20px !important
-            }
-
-            .es-m-p25 {
-                padding: 25px !important
-            }
-
-            .es-m-p25t {
-                padding-top: 25px !important
-            }
-
-            .es-m-p25b {
-                padding-bottom: 25px !important
-            }
-
-            .es-m-p25r {
-                padding-right: 25px !important
-            }
-
-            .es-m-p25l {
-                padding-left: 25px !important
-            }
-
-            .es-m-p30 {
-                padding: 30px !important
-            }
-
-            .es-m-p30t {
-                padding-top: 30px !important
-            }
-
-            .es-m-p30b {
-                padding-bottom: 30px !important
-            }
-
-            .es-m-p30r {
-                padding-right: 30px !important
-            }
-
-            .es-m-p30l {
-                padding-left: 30px !important
-            }
-
-            .es-m-p35 {
-                padding: 35px !important
-            }
-
-            .es-m-p35t {
-                padding-top: 35px !important
-            }
-
-            .es-m-p35b {
-                padding-bottom: 35px !important
-            }
-
-            .es-m-p35r {
-                padding-right: 35px !important
-            }
-
-            .es-m-p35l {
-                padding-left: 35px !important
-            }
-
-            .es-m-p40 {
-                padding: 40px !important
-            }
-
-            .es-m-p40t {
-                padding-top: 40px !important
-            }
-
-            .es-m-p40b {
-                padding-bottom: 40px !important
-            }
-
-            .es-m-p40r {
-                padding-right: 40px !important
-            }
-
-            .es-m-p40l {
-                padding-left: 40px !important
-            }
-
             .es-desk-hidden {
                 display: table-row !important;
                 width: auto !important;
@@ -565,47 +375,128 @@ You have received a new contact request from ${name}
     </style>
 </head>
 
-<body data-new-gr-c-s-loaded="14.1072.0"
-    style="width:100%;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
-    <div class="es-wrapper-color" style="background-color:#F8F9FD">
-        <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"> <v:fill type="tile" color="#f8f9fd"></v:fill> </v:background><![endif]-->
+<body data-new-gr-c-s-loaded="14.1079.0"
+    style="width:100%;font-family:Nunito, Roboto, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+    <div class="es-wrapper-color" style="background-color:#222222">
+        <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"> <v:fill type="tile" src="https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png" color="#222222" origin="0.5, 0" position="0.5, 0"></v:fill> </v:background><![endif]-->
         <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
-            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top">
+            background="https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png"
+            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-image:url(https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png);background-repeat:repeat;background-position:center top">
             <tr>
                 <td valign="top" style="padding:0;Margin:0">
                     <table cellpadding="0" cellspacing="0" class="es-header" align="center"
                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top">
                         <tr>
                             <td align="center" style="padding:0;Margin:0">
-                                <table bgcolor="#ffffff" class="es-header-body" align="center" cellpadding="0"
-                                    cellspacing="0"
+                                <table class="es-header-body" align="center" cellpadding="0" cellspacing="0"
                                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
                                     <tr>
                                         <td align="left"
-                                            style="Margin:0;padding-top:10px;padding-bottom:15px;padding-left:30px;padding-right:30px">
-                                            <table cellpadding="0" cellspacing="0" width="100%"
-                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                            style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:223px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
                                                 <tr>
-                                                    <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:540px">
+                                                    <td class="es-m-p0r es-m-p20b" valign="top" align="center"
+                                                        style="padding:0;Margin:0;width:223px">
                                                         <table cellpadding="0" cellspacing="0" width="100%"
-                                                            role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
                                                                 <td align="center"
-                                                                    style="padding:0;Margin:0;font-size:0px"><a
-                                                                        target="_blank" href="https://jayantkageri.in"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#1376C8;font-size:14px"><img
-                                                                            src="https://vvefmw.stripocdn.email/content/guids/videoImgGuid/images/jayantkagerie6b8fc52.png"
-                                                                            alt="Jayant Hegde Kageri"
-                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                            width="130" title="Jayant Hegde Kageri"
-                                                                            class="adapt-img"></a></td>
+                                                                    style="padding:0;Margin:0;display:none"></td>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
                                             </table>
+                                            <!--[if mso]></td><td style="width:20px"></td><td style="width:317px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:317px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="center"
+                                                                    style="padding:0;Margin:0;display:none"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="es-content" cellspacing="0" cellpadding="0" align="center"
+                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+                        <tr>
+                            <td align="center" style="padding:0;Margin:0">
+                                <table class="es-content-body"
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#333333;border-radius:10px 10px 0px 0px;width:600px"
+                                    cellspacing="0" cellpadding="0" bgcolor="#333333" align="center">
+                                    <tr>
+                                        <td align="left" style="padding:20px;Margin:0;border-radius:10px 0 0 10px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:175px" valign="top"><![endif]-->
+                                            <table cellspacing="0" cellpadding="0" align="left" class="es-left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td class="es-m-p0r es-m-p20b" valign="top" align="center"
+                                                        style="padding:0;Margin:0;width:175px">
+                                                        <table width="100%" cellspacing="0" cellpadding="0"
+                                                            bgcolor="#D54F10"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#d54f10;border-radius:10px 0 0 10px"
+                                                            role="presentation">
+                                                            <tr>
+                                                                <td align="center"
+                                                                    style="Margin:0;padding-left:15px;padding-right:15px;padding-top:20px;padding-bottom:25px;font-size:0px">
+                                                                    <a target="_blank"
+                                                                        href="links.jayantkageri.in/website"
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#D54F10;font-size:17px"><img
+                                                                            src="https://vvefmw.stripocdn.email/content/guids/CABINET_77bb7d5d85fbe7170ebeaea23c42575c/images/jayantkageri_nli.png"
+                                                                            alt="Jayant Hegde Kageri"
+                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
+                                                                            width="109" title="Jayant Hegde Kageri"></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:0px"></td><td style="width:385px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:385px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            bgcolor="#D54F10"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#d54f10;border-radius:0px 10px 10px 0px"
+                                                            role="presentation">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="Margin:0;padding-bottom:10px;padding-left:20px;padding-right:20px;padding-top:30px">
+                                                                    <h1
+                                                                        style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;font-size:36px;font-style:normal;font-weight:bold;color:#ffffff">
+                                                                        Jayant Hegde Kageri</h1>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left" class="es-m-txt-c"
+                                                                    style="padding:0;Margin:0;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#ffffff;font-size:17px">
+                                                                        Nothing is easy in life when you aren't
+                                                                        interested.<br></p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
                                         </td>
                                     </tr>
                                 </table>
@@ -615,13 +506,71 @@ You have received a new contact request from ${name}
                     <table cellpadding="0" cellspacing="0" class="es-content" align="center"
                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
                         <tr>
-                            <td align="center" bgcolor="#f8f9fd" style="padding:0;Margin:0;background-color:#f8f9fd">
-                                <table bgcolor="transparent" class="es-content-body" align="center" cellpadding="0"
+                            <td align="center" style="padding:0;Margin:0">
+                                <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
                                     cellspacing="0"
-                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
+                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#333333;border-radius:0px 0px 10px 10px;width:600px">
                                     <tr>
                                         <td align="left"
-                                            style="Margin:0;padding-bottom:10px;padding-top:20px;padding-left:20px;padding-right:20px">
+                                            style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-bottom:20px">
+                                                                    <h1
+                                                                        style="Margin:0;line-height:43px;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;font-size:36px;font-style:normal;font-weight:bold;color:#D54F10">
+                                                                        Contact Request (${id})</h1>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-bottom:10px">
+                                                                    <h2
+                                                                        style="Margin:0;line-height:29px;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;font-size:24px;font-style:normal;font-weight:bold;color:#efefef">
+                                                                        Someone wants to get in touch with you!</h2>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
+                                            <table cellpadding="0" cellspacing="0" width="100%"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                <tr>
+                                                    <td align="center" valign="top"
+                                                        style="padding:0;Margin:0;width:560px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left" style="padding:0;Margin:0"><span
+                                                                        class="es-button-border"
+                                                                        style="border-style:solid;border-color:#D54F10;background:#333333;border-width:2px;display:inline-block;border-radius:30px;width:auto"><a
+                                                                            href="" class="es-button" target="_blank"
+                                                                            style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#333333;border-width:10px 40px 10px 40px;display:inline-block;background:#333333;border-radius:30px;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center">DETAILS
+                                                                            PROVIDED</a></span></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
                                             <table cellpadding="0" cellspacing="0" width="100%"
                                                 style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
@@ -632,18 +581,17 @@ You have received a new contact request from ${name}
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
                                                                 <td align="center"
-                                                                    style="padding:0;Margin:0;padding-bottom:10px">
-                                                                    <h1
-                                                                        style="Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:30px;font-style:normal;font-weight:bold;color:#212121">
-                                                                        You have a new CONTACT REQUEST</h1>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="center"
-                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:19px;color:#131313;font-size:16px">
-                                                                        ${name} requested to Contact you!<br></p>
+                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0">
+                                                                    <table border="0" width="100%" height="100%"
+                                                                        cellpadding="0" cellspacing="0"
+                                                                        role="presentation"
+                                                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding:0;Margin:0;border-bottom:1px solid #111111;background:none;height:1px;width:100%;margin:0px">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -653,26 +601,226 @@ You have received a new contact request from ${name}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="es-m-p15t es-m-p0b es-m-p0r es-m-p0l" align="left"
-                                            style="padding:0;Margin:0;padding-top:15px">
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-bottom:5px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
+                                                                        NAME</p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:20px"></td><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-right" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#d54f10;font-size:17px">
+                                                                        ${name}</p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
+                                                                        IP ADDRESS</p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:20px"></td>
+<td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-right" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#EFEFEF;font-size:17px">
+                                                                        <a target="_blank"
+                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#D54F10;font-size:17px"
+                                                                            href="https://ipinfo.io/${ip}">${ip}</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
+                                                                        E-MAIL<br></p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:20px"></td>
+<td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-right" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#EFEFEF;font-size:17px">
+                                                                        <a target="_blank" href="mailto:${email}"
+                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#D54F10;font-size:17px">${email}</a>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="Margin:0;padding-top:5px;padding-bottom:20px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
+                                                                        <b>MESSAGE</b>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:20px"></td>
+<td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-right" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#EFEFEF;font-size:17px">
+                                                                    <p
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#D54F10;font-size:17px">
+                                                                        ${message}</p>
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-top:20px;padding-left:20px;padding-right:20px">
                                             <table cellpadding="0" cellspacing="0" width="100%"
                                                 style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
                                                     <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:600px">
+                                                        style="padding:0;Margin:0;width:560px">
                                                         <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
                                                                 <td align="center"
-                                                                    style="padding:0;Margin:0;font-size:0px"><a
-                                                                        target="_blank" href="https://jayantkageri.in/"
-                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:16px"><img
-                                                                            class="adapt-img"
-                                                                            src="https://vvefmw.stripocdn.email/content/guids/CABINET_1ce849b9d6fc2f13978e163ad3c663df/images/3991592481152831.png"
-                                                                            alt="@jayantkageri"
-                                                                            style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
-                                                                            width="600" title="@jayantkageri"></a></td>
+                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px;font-size:0">
+                                                                    <table border="0" width="100%" height="100%"
+                                                                        cellpadding="0" cellspacing="0"
+                                                                        role="presentation"
+                                                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                                        <tr>
+                                                                            <td
+                                                                                style="padding:0;Margin:0;border-bottom:1px solid #111111;background:none;height:1px;width:100%;margin:0px">
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -687,163 +835,45 @@ You have received a new contact request from ${name}
                     <table cellpadding="0" cellspacing="0" class="es-content" align="center"
                         style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
                         <tr>
-                            <td align="center" bgcolor="#071f4f"
-                                style="padding:0;Margin:0;background-color:#071f4f;background-image:url(https://vvefmw.stripocdn.email/content/guids/CABINET_1ce849b9d6fc2f13978e163ad3c663df/images/10801592857268437.png);background-repeat:no-repeat;background-position:center top"
-                                background="https://vvefmw.stripocdn.email/content/guids/CABINET_1ce849b9d6fc2f13978e163ad3c663df/images/10801592857268437.png">
-                                <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
-                                    cellspacing="0"
+                            <td class="es-info-area" align="center" style="padding:0;Margin:0">
+                                <table class="es-content-body" align="center" cellpadding="0" cellspacing="0"
                                     style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
                                     <tr>
-                                        <td align="left"
-                                            style="Margin:0;padding-left:30px;padding-right:30px;padding-top:40px;padding-bottom:40px">
+                                        <td align="left" style="padding:20px;Margin:0">
                                             <table cellpadding="0" cellspacing="0" width="100%"
                                                 style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                 <tr>
                                                     <td align="center" valign="top"
-                                                        style="padding:0;Margin:0;width:540px">
+                                                        style="padding:0;Margin:0;width:560px">
                                                         <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="center" height="20"
-                                                                    style="padding:0;Margin:0"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left"
-                                                                    style="padding:0;Margin:0;padding-bottom:10px">
-                                                                    <h1
-                                                                        style="Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:30px;font-style:normal;font-weight:bold;color:#ffffff;text-align:center">
-                                                                        DETAILS</h1>
+                                                                <td align="center" class="es-infoblock"
+                                                                    style="padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:14px;color:#CCCCCC;font-size:12px">
+                                                                        Jayant Hegde Kageri - Nothing is easy in life
+                                                                        when you aren't interested.</p>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td align="left"
-                                                                    style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#ffffff;font-size:16px">
-                                                                        <em><strong>↦ REFRENCE Number: ${id}</strong></em>
-                                                                    </p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#ffffff;font-size:16px">
-                                                                        <br>
-                                                                    </p>
-                                                                    <p
-                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#ffffff;font-size:16px">
-                                                                        → NAME: ${name}<br>↣ EMAIL ID: ${email}<br>↣ IP
-                                                                        Address: <a
-                                                                            href="https://ipinfo.io/${ip}">${ip}</a><br><strong>↳
-                MESSAGE:
-                                                                        </strong > ${message}</p >
-                                                                </td >
-                                                            </tr >
-                                                        </table >
-                                                    </td >
-                                                </tr >
-                                            </table >
-                                        </td >
-                                    </tr >
-                                </table >
-                            </td >
-                        </tr >
-                    </table >
-            <table cellpadding="0" cellspacing="0" class="es-content" align="center"
-                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
-                <tr>
-                    <td align="center" bgcolor="#f8f9fd"
-                        style="padding:0;Margin:0;background-color:#f8f9fd;background-image:url(https://vvefmw.stripocdn.email/content/guids/CABINET_1ce849b9d6fc2f13978e163ad3c663df/images/83191592482092483.png);background-repeat:no-repeat;background-position:center center"
-                        background="https://vvefmw.stripocdn.email/content/guids/CABINET_1ce849b9d6fc2f13978e163ad3c663df/images/83191592482092483.png">
-                        <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0"
-                            cellspacing="0"
-                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px">
-                            <tr>
-                                <td align="left"
-                                    style="Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px;padding-top:40px">
-                                    <table cellpadding="0" cellspacing="0" width="100%"
-                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                        <tr>
-                                            <td align="center" valign="top"
-                                                style="padding:0;Margin:0;width:281px">
-                                                <table cellpadding="0" cellspacing="0" width="100%"
-                                                    role="presentation"
-                                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                    <tr>
-                                                        <td align="left" style="padding:0;Margin:0">
-                                                            <h1
-                                                                style="Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;font-size:30px;font-style:normal;font-weight:bold;color:#212121;text-align:center">
-                                                                JAYANT HEGDE KAGERI</h1>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center" class="es-m-txt-c"
-                                                            style="padding:0;Margin:0;padding-top:15px">
-                                                            <p
-                                                                style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#131313;font-size:16px">
-                                                                <em>Nothing is easy in life when you aren't
-                                                                    interested</em><br>
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td align="center"
-                                                            style="padding:0;Margin:0;font-size:0">
-                                                            <table cellpadding="0" cellspacing="0"
-                                                                class="es-table-not-adapt es-social"
-                                                                role="presentation"
-                                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                                                                <tr>
-                                                                    <td align="center" valign="top"
-                                                                        style="padding:0;Margin:0;padding-right:10px">
-                                                                        <a target="_blank"
-                                                                            href="https://links.jayantkageri.in/twitter"
-                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:16px"><img
-                                                                                src="https://vvefmw.stripocdn.email/content/assets/img/social-icons/circle-colored/twitter-circle-colored.png"
-                                                                                alt="Tw" title="Twitter"
-                                                                                width="32"
-                                                                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a>
-                                                                    </td>
-                                                                    <td align="center" valign="top"
-                                                                        style="padding:0;Margin:0;padding-right:10px">
-                                                                        <a target="_blank"
-                                                                            href="https://links.jayantkageri.in/facebook"
-                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:16px"><img
-                                                                                src="https://vvefmw.stripocdn.email/content/assets/img/social-icons/circle-colored/facebook-circle-colored.png"
-                                                                                alt="Fb" title="Facebook"
-                                                                                width="32"
-                                                                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a>
-                                                                    </td>
-                                                                    <td align="center" valign="top"
-                                                                        style="padding:0;Margin:0"><a
-                                                                            target="_blank"
-                                                                            href="https://links.jayantkageri.in/youtube"
-                                                                            style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#2CB543;font-size:16px"><img
-                                                                                src="https://vvefmw.stripocdn.email/content/assets/img/social-icons/circle-colored/youtube-circle-colored.png"
-                                                                                alt="Yt" title="Youtube"
-                                                                                width="32"
-                                                                                style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-                </td >
-            </tr >
-        </table >
-    </div >
-</body >
-
-</html >
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
         `
-
         // Creating the transporter
         const transporter = createTransport({
             // @ts-ignore
@@ -936,7 +966,7 @@ async function contact(req: NextApiRequest, res: NextApiResponse) {
         }
 
         // Sending the response to the client
-        return res.status(201).send({ success: true, type: response, sent: response.email || response.telegram })
+        return res.status(201).send({ success: true, type: response, sent: response.email || response.telegram || false })
     } catch (err: any) {
         // If any error occurs, sending the error to the client
         return res.status(500).send({ success: false, message: err.message })

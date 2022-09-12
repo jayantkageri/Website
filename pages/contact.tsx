@@ -19,10 +19,9 @@
 import React from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import Heading from "../components/Heading";
+import toast, { ToastOptions } from "react-hot-toast";
 
-export default function Contact(props: {
-  toastify: { alert: Function; loading: Function; update: Function };
-}) {
+export default function Contact() {
   // States for the form.
   const [info, setInfo] = React.useState<{
     name?: string;
@@ -54,33 +53,44 @@ export default function Contact(props: {
     e.preventDefault();
     // Set loading to true.
     setInfo({ ...info, loading: true });
-    const toast = props.toastify?.loading("Sending your message...");
+    const options: ToastOptions = {
+      style: {
+        borderRadius: "40px",
+        background: "#333",
+        color: "#fff",
+        userSelect: "none",
+      },
+      duration: 5000,
+    };
+
+    const id = toast.loading("Sending your message...", options);
 
     // Validation
     if (!info?.name || !info?.email || !info?.message) {
       setInfo({ ...info, loading: false });
-      return props.toastify.update(
-        toast,
-        "error",
-        "Please fill all the fields"
-      );
+      return toast.error("Please fill all the fields.", {
+        ...options,
+        id: id,
+      });
     }
 
     // eMail Validation
     if (!eMailRegex.test(info.email.toString().toLowerCase())) {
       setInfo({ ...info, loading: false });
-      return props.toastify.update(
-        toast,
-        "error",
-        "Please enter a valid email"
-      );
+      return toast.error("Please enter a valid email address.", {
+        ...options,
+        id: id,
+      });
     }
 
     // Captcha Validation
-    if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info.token) {
+    if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info?.token) {
       // Alert the user
       setInfo({ ...info, loading: false });
-      return props.toastify.update(toast, "error", "Please solve the hCaptcha");
+      return toast.error("Please solve hCaptcha", {
+        ...options,
+        id: id,
+      });
     }
 
     // Sending data to backend API.
@@ -120,7 +130,10 @@ export default function Contact(props: {
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha?.current?.resetCaptcha();
       //  Alert the user.
-      return props.toastify.update(toast, "error", res.message);
+      return toast.error(res.message, {
+        ...options,
+        id: id,
+      });
     }
 
     // If Telegram was unable to send the message
@@ -132,7 +145,10 @@ export default function Contact(props: {
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha?.current?.resetCaptcha();
       // Alert the user.
-      return props.toastify.update(toast, "error", "Something went wrong");
+      return toast.error("Something went wrong", {
+        ...options,
+        id: id,
+      });
     }
 
     // Reset the form.
@@ -142,7 +158,10 @@ export default function Contact(props: {
     process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
       hcaptcha?.current?.resetCaptcha();
     // Alert the user.
-    props.toastify.update(toast, "success", "Message sent successfully");
+    return toast.success("Message sent successfully.", {
+      ...options,
+      id: id,
+    });
   };
 
   return (

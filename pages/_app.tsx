@@ -19,38 +19,13 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import {
-  ToastContainer,
-  toast,
-  type TypeOptions,
-  Id,
-  Slide,
-} from "react-toastify";
+import { Toaster } from "react-hot-toast";
 import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 
 function App({ Component, pageProps }: AppProps) {
-  // Function to use React Toastify easily.
-  const alert = (info: TypeOptions, message: string): Id =>
-    toast(message, { type: info });
-
-  // Function to use React Toastify loading
-  const loading = (message: string): Id =>
-    toast.loading(message, { closeOnClick: true, toastId: message });
-  const update = (id: Id, info: TypeOptions, message: string) =>
-    toast.update(id, {
-      isLoading: false,
-      type: info,
-      render: message,
-      hideProgressBar: false,
-      closeOnClick: true,
-      autoClose: 50,
-      transition: Slide,
-    });
-
   // States
   const [info, setInfo] = React.useState<{
     page: string | null;
@@ -121,17 +96,10 @@ function App({ Component, pageProps }: AppProps) {
       {/* Navbar */}
       <Navbar />
       {/* React Toastify */}
-      <ToastContainer theme="dark" limit={4} />
+      <Toaster position="top-right" />
       <main className="bg-gray-900 min-h-screen">
         {/* Main content of the page */}
-        <Component
-          {...pageProps}
-          toastify={{
-            alert,
-            loading,
-            update,
-          }}
-        />
+        <Component {...pageProps} />
       </main>
       {/* Footer */}
       <Footer />
