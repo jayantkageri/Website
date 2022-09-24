@@ -56,17 +56,17 @@ export default function Meta(props: { page: string | null }) {
         <meta property="article:publisher" content="https://jayantkageri.in" />
         <meta
           property="og:image"
-          content="/assets/img/favicons/android-icon-192x192.png"
+          content="https://jayantkageri.in/assets/img/favicons/android-icon-192x192.png"
         />
 
-        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jayantkageri" />
         <meta name="twitter:creator" content="@jayantkageri" />
         <meta name="twitter:title" content={page} />
         <meta name="twitter:description" content={description} />
+        <meta property="twitter:url" content="https://jayantkageri.in" />
         <meta
           name="twitter:image"
-          content="/assets/img/favicons/android-icon-192x192.png"
+          content="https://jayantkageri.in/assets/img/favicons/android-icon-192x192.png"
         />
 
         <link

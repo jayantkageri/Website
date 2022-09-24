@@ -887,7 +887,7 @@ You have received a new contact request from ${name}
                 user: process.env.EMAIL_ID,
                 pass: process.env.EMAIL_PASSWORD,
             },
-            sender: `Jayant Hegde Kageri <${process.env.EMAIL_ID}>`
+            sender: `Server - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`
         })
 
         // Verifying the transported is connected to the server
@@ -901,7 +901,7 @@ You have received a new contact request from ${name}
 
         // Sending the mail
         transporter.sendMail({
-            from: `Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
+            from: `Contact - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
             to: process.env.EMAIL_SEND_TO,
             replyTo: email,
             subject: subject,
