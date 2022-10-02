@@ -17,11 +17,12 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import type { NextPage } from "next";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import Heading from "../components/Heading";
 import toast, { ToastOptions } from "react-hot-toast";
 
-export default function Contact() {
+const Contact: NextPage = () => {
   // States for the form.
   const [info, setInfo] = React.useState<{
     name?: string;
@@ -53,7 +54,9 @@ export default function Contact() {
     e.preventDefault();
     // Set loading to true.
     setInfo({ ...info, loading: true });
-    const options: ToastOptions = {
+
+    // Configuration for Toast.
+    const option: ToastOptions = {
       style: {
         borderRadius: "40px",
         background: "#333",
@@ -63,34 +66,28 @@ export default function Contact() {
       duration: 5000,
     };
 
-    const id = toast.loading("Sending your message...", options);
+    const options: ToastOptions = {
+      id: toast.loading("Sending your message...", option),
+      ...option,
+    };
 
     // Validation
     if (!info?.name || !info?.email || !info?.message) {
       setInfo({ ...info, loading: false });
-      return toast.error("Please fill all the fields.", {
-        ...options,
-        id: id,
-      });
+      return toast.error("Please fill all the fields.", options);
     }
 
     // eMail Validation
     if (!eMailRegex.test(info.email.toString().toLowerCase())) {
       setInfo({ ...info, loading: false });
-      return toast.error("Please enter a valid email address.", {
-        ...options,
-        id: id,
-      });
+      return toast.error("Please enter a valid email address.", options);
     }
 
     // Captcha Validation
     if (process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY && !info?.token) {
       // Alert the user
       setInfo({ ...info, loading: false });
-      return toast.error("Please solve hCaptcha", {
-        ...options,
-        id: id,
-      });
+      return toast.error("Please solve hCaptcha", options);
     }
 
     // Sending data to backend API.
@@ -130,13 +127,10 @@ export default function Contact() {
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha?.current?.resetCaptcha();
       //  Alert the user.
-      return toast.error(res.message, {
-        ...options,
-        id: id,
-      });
+      return toast.error(res.message, options);
     }
 
-    // If Telegram was unable to send the message
+    // If Server was unable to send the message
     if (!res.sent) {
       // Reset the form.
       setInfo({});
@@ -145,10 +139,7 @@ export default function Contact() {
       process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
         hcaptcha?.current?.resetCaptcha();
       // Alert the user.
-      return toast.error("Something went wrong", {
-        ...options,
-        id: id,
-      });
+      return toast.error("Something went wrong", options);
     }
 
     // Reset the form.
@@ -158,10 +149,7 @@ export default function Contact() {
     process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY &&
       hcaptcha?.current?.resetCaptcha();
     // Alert the user.
-    return toast.success("Message sent successfully.", {
-      ...options,
-      id: id,
-    });
+    return toast.success("Message sent successfully.", options);
   };
 
   return (
@@ -256,4 +244,6 @@ export default function Contact() {
       </section>
     </>
   );
-}
+};
+
+export default Contact;
