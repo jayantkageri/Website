@@ -17,10 +17,11 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import type { NextPage } from "next";
 import Image from "next/image";
 import jayantkageri from "../assets/jayantkageri.png";
 
-export default function Home() {
+const Home: NextPage = () => {
   return (
     <>
       <section id="home" className="bg-gray-900">
@@ -192,4 +193,6 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
       </section>
     </>
   );
-}
+};
+
+export default Home;

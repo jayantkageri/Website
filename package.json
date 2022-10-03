@@ -27,7 +27,8 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pull": "git pull && yarn && rm -rf .next && yarn build"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.3.0",

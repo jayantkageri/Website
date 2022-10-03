@@ -17,9 +17,10 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import type { NextPage } from "next";
 import banner from "../assets/banner.png";
 
-export default function Video() {
+const Intro: NextPage = () => {
   return (
     <>
       <section id="intro" className="bg-gray-900 min-w-full min-h-screen">
@@ -48,4 +49,6 @@ export default function Video() {
       </section>
     </>
   );
-}
+};
+
+export default Intro;
