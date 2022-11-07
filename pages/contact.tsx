@@ -17,12 +17,20 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import type { NextPage } from "next";
+import type { Page } from "./_app";
+import { Noto_Sans, Inter } from "@next/font/google";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import Heading from "../components/Heading";
 import toast, { ToastOptions } from "react-hot-toast";
 
-const Contact: NextPage = () => {
+const notoSans = Noto_Sans({
+  weight: "500",
+  style: "normal",
+  subsets: ["latin"],
+}); // Points Font
+const inter = Inter({ weight: "400", style: "normal", subsets: ["latin"] }); // Body Font
+
+const Contact: Page = () => {
   // States for the form.
   const [info, setInfo] = React.useState<{
     name?: string;
@@ -97,7 +105,8 @@ const Contact: NextPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*/*",
+          "Access-Control-Allow-Origin":
+            process.env.NEXT_PUBLIC_API_URL || window.location.origin,
         },
         body: JSON.stringify(info),
       }
@@ -163,47 +172,56 @@ const Contact: NextPage = () => {
             <form onSubmit={onSubmit} ref={ref}>
               <div className="-mx-2 md:flex">
                 <div className="w-full mx-2">
-                  <label className="block mb-2 text-sm font-medium text-gray-200">
+                  <label
+                    className={`${notoSans.className} block mb-2 text-sm font-medium text-gray-200`}
+                  >
                     Name
                   </label>
 
                   <input
-                    className="block w-full px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:ring-blue-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 disabled:bg-gray-700"
+                    className={`${inter.className} block w-full px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:ring-blue-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 transition-all duration-200 disabled:bg-gray-700`}
                     type="text"
                     id="name"
                     onChange={onChange}
                     value={info?.name || ""}
                     disabled={info?.loading}
+                    autoComplete="off"
                   />
                 </div>
 
                 <div className="w-full mx-2 mt-4 md:mt-0">
-                  <label className="block mb-2 text-sm font-medium text-gray-200">
+                  <label
+                    className={`${notoSans.className} block mb-2 text-sm font-medium text-gray-200`}
+                  >
                     E-mail
                   </label>
 
                   <input
-                    className="block w-full px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:ring-blue-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 disabled:bg-gray-700"
+                    className={`${inter.className} block w-full px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:ring-blue-300 focus:border-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 transition-all duration-200 disabled:bg-gray-700`}
                     type="email"
                     id="email"
                     onChange={onChange}
                     value={info?.email || ""}
                     disabled={info?.loading}
+                    autoComplete="off"
                   />
                 </div>
               </div>
 
               <div className="w-full mt-4">
-                <label className="block mb-2 text-sm font-medium text-gray-200">
+                <label
+                  className={`${notoSans.className} block mb-2 text-sm font-medium text-gray-200`}
+                >
                   Message
                 </label>
 
                 <textarea
-                  className="block w-full h-40 px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 disabled:bg-gray-700"
+                  className={`${inter.className} block w-full h-40 px-4 py-2 border rounded-md bg-gray-800 text-gray-300 border-gray-600 focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 transition-all duration-200 disabled:bg-gray-700`}
                   id="message"
                   onChange={onChange}
                   value={info?.message || ""}
                   disabled={info?.loading}
+                  autoComplete="off"
                 />
               </div>
               {process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ? (
@@ -221,7 +239,7 @@ const Contact: NextPage = () => {
                   </div>
                   <div className="flex mx-10 max-h-16 mt-8">
                     <button
-                      className="px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                      className={`${notoSans.className} px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600`}
                       type="submit"
                     >
                       Send Message
@@ -231,7 +249,7 @@ const Contact: NextPage = () => {
               ) : (
                 <div className="flex justify-center mx-10 max-h-16 mt-8">
                   <button
-                    className="px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                    className={`${notoSans.className} px-4 py-2 text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600`}
                     type="submit"
                   >
                     Send Message
@@ -246,4 +264,5 @@ const Contact: NextPage = () => {
   );
 };
 
+Contact.title = "Contact";
 export default Contact;

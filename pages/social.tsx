@@ -17,10 +17,13 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import type { NextPage } from "next";
+import type { Page } from "./_app";
+import { Inter } from "@next/font/google";
 import Heading from "../components/Heading";
 
-const Social: NextPage = () => {
+const inter = Inter({ weight: "400", style: "normal", subsets: ["latin"] }); // Body Font
+
+const Social: Page = () => {
   return (
     <>
       <section id="social" className="bg-gray-900 min-h-screen">
@@ -164,9 +167,7 @@ function SocialLinks(props: {
       `}</style>
 
       <a
-        className={
-          "flex flex-row justify-center w-full px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0 hover:border-2"
-        }
+        className={`${inter.className} flex flex-row justify-center w-full px-4 py-2 text-xl select-none cursor-pointer border rounded-md bg-gray-800 text-gray-300 border-gray-600 transition-all translate-y-1 hover:bg-gray-900 hover:translate-x-2 hover:translate-y-0 hover:border-2`}
         id={props.name}
         href={props.link}
         target={"_blank"}
@@ -192,4 +193,5 @@ function SocialLinks(props: {
   );
 }
 
+Social.title = "Social Media";
 export default Social;

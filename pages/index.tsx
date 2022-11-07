@@ -17,11 +17,25 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import type { NextPage } from "next";
+import type { Page } from "./_app";
+import { Montserrat, Roboto, Noto_Sans, Inter } from "@next/font/google";
 import Image from "next/image";
 import jayantkageri from "../assets/jayantkageri.png";
 
-const Home: NextPage = () => {
+const montserrat = Montserrat({
+  weight: "600",
+  style: "normal",
+  subsets: ["latin"],
+}); // Title Font
+const roboto = Roboto({ weight: "400", style: "italic", subsets: ["latin"] }); // Tag Line Font
+const notoSans = Noto_Sans({
+  weight: "500",
+  style: "normal",
+  subsets: ["latin"],
+}); // Points Font
+const inter = Inter({ weight: "400", style: "normal", subsets: ["latin"] }); // Body Font
+
+const Home: Page = () => {
   return (
     <>
       <section id="home" className="bg-gray-900">
@@ -29,11 +43,13 @@ const Home: NextPage = () => {
           <div className="lg:flex lg:items-center mb-6">
             <div className="w-full space-y-12 lg:w-1/2 ">
               <div>
-                <h1 className="text-3xl font-semibold capitalize lg:text-4xl text-white">
+                <h1
+                  className={`${montserrat.className} text-3xl font-semibold capitalize lg:text-4xl text-white`}
+                >
                   Jayant Hegde Kageri
                 </h1>
 
-                <p className="mt-2 italic text-gray-300">
+                <p className={`${roboto.className} mt-2 italic text-gray-300`}>
                   Nothing is easy in life when you aren&apos;t interested.
                 </p>
 
@@ -69,11 +85,15 @@ const Home: NextPage = () => {
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1 className="text-2xl font-semibold capitalize text-white">
+                  <h1
+                    className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
+                  >
                     Fullstack Developer
                   </h1>
 
-                  <p className="mt-3 text-gray-300">
+                  <p
+                    className={`${inter.className} mt-3 text-gray-300 text-base`}
+                  >
                     I am a Fullstack Developer with experience building NextJS,
                     ReactJS, ExpressJS, and Python apps using TailwindCSS and
                     Bootstrap for designing.
@@ -100,13 +120,17 @@ const Home: NextPage = () => {
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1 className="text-2xl font-semibold capitalize text-white">
+                  <h1
+                    className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
+                  >
                     Fully Flexible Applications
                   </h1>
 
-                  <p className="mt-3 text-gray-300">
+                  <p
+                    className={`${inter.className} mt-3 text-gray-300 text-base`}
+                  >
                     With the power of TailwindCSS and NextJS, all of my websites
-                    are flexible and fully customizable configurations.
+                    are fully flexible and customizable.
                   </p>
                 </div>
               </div>
@@ -158,11 +182,15 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1 className="text-2xl font-semibold  capitalize text-white">
+                  <h1
+                    className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
+                  >
                     Responsive Applications
                   </h1>
 
-                  <p className="mt-3 text-gray-300">
+                  <p
+                    className={`${inter.className} mt-3 text-gray-300 text-base`}
+                  >
                     Whether a mobile client or desktop client, I can build a
                     fully responsive website for all devices.
                   </p>
@@ -171,18 +199,19 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
             </div>
 
             <div className="flex object-cover items-center lg:w-1/2 justify-center lg-mt-5 mt-10">
-              <div className="w-80 h-80 object-cover xl:w-[31rem] xl:h-[31rem] rounded-full select-none text-white">
+              <div className="w-80 h-80 object-cover xl:w-[31rem] xl:h-[31rem] rounded-full text-white">
                 <Image
-                  className="object-cover rounded-full select-none text-white"
+                  className="object-cover rounded-full text-white"
                   src={jayantkageri.src}
                   alt="@jayantkageri"
                   width={jayantkageri.width}
                   height={jayantkageri.height}
+                  priority
                 />
 
                 {/* For Static Build */}
                 {/* <img
-                  className="w-80 h-80 object-cover xl:w-[31rem] xl:h-[31rem] rounded-full select-none text-white"
+                  className="w-80 h-80 object-cover xl:w-[31rem] xl:h-[31rem] rounded-full text-white"
                   src={jayantkageri.src}
                   alt="@jayantkageri"
                 /> */}

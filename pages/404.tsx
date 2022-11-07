@@ -17,6 +17,9 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import { Roboto } from "@next/font/google";
+
+const roboto = Roboto({ weight: "400", style: "normal", subsets: ["latin"] }); // Body Font
 
 export default function Error() {
   const [info, setInfo] = React.useState<{ code: number; message: string }>();
@@ -31,7 +34,10 @@ export default function Error() {
     info?.code &&
     info?.message && (
       <>
-        <section id={"404"} className="min-h-screen bg-gray-900">
+        <section
+          id={"404"}
+          className={`${roboto.className} min-h-screen bg-gray-900`}
+        >
           <body className="antialiased">
             <div className="relative flex items-top justify-center sm:items-center">
               <div className="max-w-xl mx-auto sm:px-6 lg:px-8">

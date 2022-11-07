@@ -17,10 +17,10 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import type { NextPage } from "next";
+import type { Page } from "./_app";
 import banner from "../assets/banner.png";
 
-const Intro: NextPage = () => {
+const Intro: Page = () => {
   return (
     <>
       <section id="intro" className="bg-gray-900 min-w-full min-h-screen">
@@ -51,4 +51,5 @@ const Intro: NextPage = () => {
   );
 };
 
+Intro.title = "Intro";
 export default Intro;

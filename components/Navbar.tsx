@@ -21,6 +21,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import jayantkageri from "../assets/jayantkageri.png";
+import { Inter } from "@next/font/google";
+
+const inter = Inter({ weight: "500", style: "normal", subsets: ["latin"] }); // Body Font
 
 export default function Navbar() {
   const router = useRouter();
@@ -67,28 +70,27 @@ export default function Navbar() {
         <div className="container px-6 py-2 mx-auto md:flex md:justify-between md:items-center">
           <div className="flex items-center justify-between">
             <div>
-              <Link href={"/"}>
-                <a
-                  className="text-2xl font-bold  transition-colors duration-200 transform text-white lg:text-3xl hover: dark:hover:text-gray-300"
-                  tabIndex={-1}
-                >
-                  <div className="w-14 rounded-full">
-                    <Image
-                      src={jayantkageri.src}
-                      alt="Jayant Hegde Kageri"
-                      width={jayantkageri.width}
-                      height={jayantkageri.height}
-                      className="rounded-full"
-                    />
+              <Link
+                href={"/"}
+                className="text-2xl font-bold  transition-colors duration-200 transform text-white lg:text-3xl hover: dark:hover:text-gray-300"
+                tabIndex={-1}
+              >
+                <div className="w-14 rounded-full">
+                  <Image
+                    src={jayantkageri.src}
+                    alt="Jayant Hegde Kageri"
+                    width={jayantkageri.width}
+                    height={jayantkageri.height}
+                    className="rounded-full"
+                  />
 
-                    {/* For Static Build */}
-                    {/* <img
+                  {/* For Static Build */}
+                  {/* <img
                       src={jayantkageri.src}
                       alt="Jayant Hegde Kageri"
                       className="w-14 rounded-full"
                     /> */}
-                  </div>
-                </a>
+                </div>
               </Link>
             </div>
 
@@ -131,14 +133,16 @@ export default function Navbar() {
             <div className="flex flex-col md:flex-row md:mx-6 transition-transform">
               {navigation.map((nav) => {
                 return (
-                  <Link href={nav.href} key={nav.name}>
-                    <a
-                      className={`my-1 text-2xs font-medium transition-colors duration-200 transform ${
-                        !nav.active ? "text-gray-200" : "text-indigo-600"
-                      } hover:text-blue-500 md:mx-4 md:my-0 self-center`}
-                    >
-                      {nav.name}
-                    </a>
+                  <Link
+                    href={nav.href}
+                    key={nav.name}
+                    className={`${
+                      inter.className
+                    } my-1 text-2xs font-medium transition-colors duration-200 transform ${
+                      !nav.active ? "text-gray-200" : "text-indigo-600"
+                    } hover:text-blue-500 md:mx-4 md:my-0 self-center`}
+                  >
+                    {nav.name}
                   </Link>
                 );
               })}

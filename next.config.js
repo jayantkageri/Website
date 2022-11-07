@@ -6,7 +6,8 @@ const nextConfig = {
   swcMinify: true,
   typescript: {
     ignoreBuildErrors: true,
-  }
+  },
+  trailingSlash: true,
 }
 
 module.exports = nextConfig

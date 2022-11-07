@@ -17,16 +17,22 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
-import type { NextPage } from "next";
+import type { Page } from "./_app";
+import { Roboto, Inter } from "@next/font/google";
 import Heading from "../components/Heading";
 
-const Legal: NextPage = () => {
+const roboto = Roboto({ weight: "400", style: "italic", subsets: ["latin"] }); // Quote Font
+const inter = Inter({ weight: "400", style: "normal", subsets: ["latin"] }); // Body Font
+
+const Legal: Page = () => {
   return (
     <>
       <section id="legal" className="bg-gray-900 min-h-screen">
         <div className="container px-6 py-10 mx-auto">
           <Heading title={"Legal"} />
-          <h4 className="text-lg italic text-gray-300 pt-2 select-none">
+          <h4
+            className={`${roboto.className} text-base italic text-gray-300 pt-2 select-none`}
+          >
             The PDF Version of this page can be found{" "}
             <a
               className="text-blue-500"
@@ -39,7 +45,9 @@ const Legal: NextPage = () => {
           </h4>
         </div>
 
-        <div className="flex flex-col justify-start px-5 text-white">
+        <div
+          className={`${inter.className} flex flex-col justify-start px-5 text-white`}
+        >
           <p className="text-gray-300 italic">
             This document is an electronic record in terms of the Information
             Technology Act, 2000 (“IT ACT”) and rules thereunder and published
@@ -52,12 +60,12 @@ const Legal: NextPage = () => {
           </p>
 
           <section id="terms-and-conditions">
-            <h2 className="py-5 text-4xl font-semibold text-start">
+            <h2 className="py-5 text-3xl font-semibold text-start">
               Terms and Conditions
             </h2>
             <ul className="list-decimal px-6 space-y-8 text-slate-100">
               <li>
-                <h3 className="text-2xl font-medium">Services</h3>
+                <h3 className="text-xl font-medium">Services</h3>
                 <ul className="list-disc px-10 space-y-2">
                   <li>
                     <p>
@@ -110,7 +118,7 @@ const Legal: NextPage = () => {
                 </ul>
               </li>
               <li>
-                <h3 className="text-2xl font-medium">Software</h3>
+                <h3 className="text-xl font-medium">Software</h3>
                 <ul className="list-disc px-10 space-y-4">
                   <li>
                     <p>
@@ -194,7 +202,7 @@ const Legal: NextPage = () => {
                 </ul>
               </li>
               <li>
-                <h3 className="text-2xl font-medium">Our Content</h3>
+                <h3 className="text-xl font-medium">Our Content</h3>
                 <ul className="list-disc px-10 space-y-4">
                   <li>
                     <p>
@@ -217,7 +225,7 @@ const Legal: NextPage = () => {
                 </ul>
               </li>
               <li>
-                <h3 className="text-2xl font-medium">
+                <h3 className="text-xl font-medium">
                   Disclaimer of Warranties
                 </h3>
                 <ul className="list-disc px-10 space-y-4">
@@ -252,7 +260,7 @@ const Legal: NextPage = () => {
                 </ul>
               </li>
               <li>
-                <h3 className="text-2xl font-medium">Updating</h3>
+                <h3 className="text-xl font-medium">Updating</h3>
                 <ul className="list-disc px-10 space-y-4">
                   <li>
                     <p>
@@ -268,7 +276,7 @@ const Legal: NextPage = () => {
           </section>
 
           <section id="privacy-policy" className="py-10">
-            <h2 className="py-5 text-4xl font-semibold text-start">
+            <h2 className="py-5 text-3xl font-semibold text-start">
               Privacy Policy
             </h2>
             <p className="italic -mt-3">
@@ -332,4 +340,5 @@ const Legal: NextPage = () => {
   );
 };
 
+Legal.title = "Legal";
 export default Legal;

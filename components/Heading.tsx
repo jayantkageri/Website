@@ -17,12 +17,21 @@
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
 import React from "react";
+import { Montserrat } from "@next/font/google";
+
+const montserrat = Montserrat({
+  weight: "500",
+  style: "normal",
+  subsets: ["latin"],
+}); // Title Font
 
 export default function Heading(props: { title: string }) {
   return (
     <div className="w-full mx-auto flex justify-center">
       <div>
-        <h1 className="text-3xl font-semibold capitalize lg:text-4xl text-white text-center">
+        <h1
+          className={`${montserrat.className} text-3xl font-semibold capitalize lg:text-4xl text-white text-center`}
+        >
           {props.title}
           <br />
           Jayant Hegde Kageri

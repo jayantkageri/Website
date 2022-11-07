@@ -38,24 +38,26 @@ async function emailValidation(email: string): Promise<boolean> {
     })
 }
 
-async function telegram(id: number, name: string, email: string, ip: string | null, message: string): Promise<boolean> {
-    if (!process.env.BOT_TOKEN) return false
+async function telegram(id: number, name: string, email: string, ip: string | null, message: string, time: string): Promise<boolean> {
+    if (!process.env.BOT_TOKEN || !process.env.CHAT_ID) return false
     // Message to be sent to the telegram
     const msg = `#CONTACT_REQUEST
     Refrence Number: ${id}
     Name: ${name}
     eMail: ${email}
-    IP: ${ip}
+    IP: ${ip} [ipinfo.io/${ip}]
+    Timestamp: ${time}
     Message:\n${message}
     `
+
+    // Maximum length of the message sent through the Telegram
+    if (msg.length > 4096) return false
+
     // Sending the message to the telegram
     const request = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
         method: "POST",
         headers: {
-            "Accept": "*/*",
-            "Access-Control-Allow-Origin": "*/*",
-            "Access-Control-Allow-Methods": "*",
-            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Origin": "https://api.telegram.org",
             "Content-Type": "application/json"
         },
         redirect: "follow",
@@ -73,7 +75,7 @@ async function telegram(id: number, name: string, email: string, ip: string | nu
     return response.ok
 }
 
-async function mail(id: number, name: string, email: string, ip: string | null, message: string): Promise<boolean> {
+async function mail(id: number, name: string, email: string, ip: string | null, message: string, time: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
         if (!process.env.EMAIL_ID || !process.env.EMAIL_PASSWORD || !process.env.EMAIL_SMTP) return resolve(false)
 
@@ -104,7 +106,7 @@ You have received a new contact request from ${name}
     <meta name="x-apple-disable-message-reformatting">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="telephone=no" name="format-detection">
-    <title>Contact Request ${id}</title>
+    <title>Contact Request (${id}) - Jayant Hegde Kageri</title>
     <!--[if (mso 16)]><style type="text/css"> a {text-decoration: none;} </style><![endif]-->
     <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
     <!--[if gte mso 9]><xml> <o:OfficeDocumentSettings> <o:AllowPNG></o:AllowPNG> <o:PixelsPerInch>96</o:PixelsPerInch> </o:OfficeDocumentSettings> </xml><![endif]-->
@@ -375,13 +377,13 @@ You have received a new contact request from ${name}
     </style>
 </head>
 
-<body data-new-gr-c-s-loaded="14.1079.0"
+<body data-new-gr-c-s-loaded="14.1086.0"
     style="width:100%;font-family:Nunito, Roboto, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
     <div class="es-wrapper-color" style="background-color:#222222">
         <!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t"> <v:fill type="tile" src="https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png" color="#222222" origin="0.5, 0" position="0.5, 0"></v:fill> </v:background><![endif]-->
         <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0"
             background="https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png"
-            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-image:url(https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png);background-repeat:repeat;background-position:center top">
+            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-image:url(https://vvefmw.stripocdn.email/content/guids/CABINET_0d926ce39655859bf4a418e50bdc5a76/images/61521627468320605.png);background-repeat:repeat;background-position:center top;background-color:#222222">
             <tr>
                 <td valign="top" style="padding:0;Margin:0">
                     <table cellpadding="0" cellspacing="0" class="es-header" align="center"
@@ -454,7 +456,7 @@ You have received a new contact request from ${name}
                                                                 <td align="center"
                                                                     style="Margin:0;padding-left:15px;padding-right:15px;padding-top:20px;padding-bottom:25px;font-size:0px">
                                                                     <a target="_blank"
-                                                                        href="links.jayantkageri.in/website"
+                                                                        href="https://links.jayantkageri.in/website"
                                                                         style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#D54F10;font-size:17px"><img
                                                                             src="https://vvefmw.stripocdn.email/content/guids/CABINET_77bb7d5d85fbe7170ebeaea23c42575c/images/jayantkageri_nli.png"
                                                                             alt="Jayant Hegde Kageri"
@@ -616,7 +618,7 @@ You have received a new contact request from ${name}
                                                                     style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
                                                                     <p
                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
-                                                                        NAME</p>
+                                                                        Name</p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -712,7 +714,7 @@ You have received a new contact request from ${name}
                                                                     style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
                                                                     <p
                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
-                                                                        E-MAIL<br></p>
+                                                                        E-MAIL</p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -736,6 +738,52 @@ You have received a new contact request from ${name}
                                                                         <a target="_blank" href="mailto:${email}"
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#D54F10;font-size:17px">${email}</a>
                                                                     </p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td></tr></table><![endif]-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left"
+                                            style="padding:0;Margin:0;padding-bottom:5px;padding-left:20px;padding-right:20px">
+                                            <!--[if mso]><table style="width:560px" cellpadding="0" cellspacing="0"><tr><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-left" align="left"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#999999;font-size:17px">
+                                                                        Timestamp</p>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <!--[if mso]></td><td style="width:20px"></td><td style="width:270px" valign="top"><![endif]-->
+                                            <table cellpadding="0" cellspacing="0" class="es-right" align="right"
+                                                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right">
+                                                <tr>
+                                                    <td align="left" style="padding:0;Margin:0;width:270px">
+                                                        <table cellpadding="0" cellspacing="0" width="100%"
+                                                            role="presentation"
+                                                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                            <tr>
+                                                                <td align="left"
+                                                                    style="padding:0;Margin:0;padding-top:5px;padding-bottom:5px">
+                                                                    <p
+                                                                        style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#d54f10;font-size:17px">
+                                                                        ${time}</p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -785,7 +833,8 @@ You have received a new contact request from ${name}
                                                                         style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Nunito, Roboto, sans-serif;line-height:26px;color:#EFEFEF;font-size:17px">
                                                                     <p
                                                                         style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:none;color:#D54F10;font-size:17px">
-                                                                        ${message}</p>
+                                                                        ${message}
+                                                                    </p>
                                                                     </p>
                                                                 </td>
                                                             </tr>
@@ -874,6 +923,7 @@ You have received a new contact request from ${name}
 </body>
 </html>
         `
+
         // Creating the transporter
         const transporter = createTransport({
             // @ts-ignore
@@ -950,26 +1000,27 @@ async function contact(req: NextApiRequest, res: NextApiResponse) {
 
         // Destructuring the request body
         const { name, email, message } = req.body
-        const id = Math.floor(Math.random() * 100000000)
+        const timeStamp = new Date().toISOString()
+        const id = Math.floor(Math.random() * 100000000) // 8 digit random number
 
 
         let response: {email?: boolean, telegram?: boolean} = {}
         
         if (process.env.EMAIL_ID) {
             // Sending the message to Email ID
-            response = { ...response, email: await mail(id, name, email, ip, message) }
+            response = { ...response, email: await mail(id, name, email, ip, message, timeStamp) }
         }
 
         if (process.env.BOT_TOKEN) {
             // Sending the message to the Telegram
-            response = { ...response, telegram: await telegram(id, name, email, ip, message) }
+            response = { ...response, telegram: await telegram(id, name, email, ip, message, timeStamp) }
         }
 
         // Sending the response to the client
         return res.status(201).send({ success: true, type: response, sent: response.email || response.telegram || false })
-    } catch (err: any) {
+    } catch (err: Error | any) {
         // If any error occurs, sending the error to the client
-        return res.status(500).send({ success: false, message: err.message })
+        return res.status(500).send({ success: false, message: err.message || err || "Internal Server Error" })
     }
 }
 

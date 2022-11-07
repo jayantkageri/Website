@@ -18,6 +18,7 @@
 
 import React from "react";
 import type { AppProps } from "next/app";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 import Meta from "../components/Meta";
@@ -25,6 +26,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/globals.css";
 
+type Page = NextPage & { title?: string };
 function App({ Component, pageProps }: AppProps) {
   // States
   const [info, setInfo] = React.useState<{
@@ -55,43 +57,11 @@ function App({ Component, pageProps }: AppProps) {
     setInfo({ ...info, notice: true });
   }
 
-  React.useEffect(() => {
-    // Title for the page.
-    switch (router.pathname) {
-      case "/contact":
-        setInfo({ ...info, page: "Contact" });
-        break;
-
-      case "/social":
-        setInfo({ ...info, page: "Social Media" });
-        break;
-
-      case "/intro":
-        setInfo({ ...info, page: "Intro" });
-        break;
-
-      case "/donate":
-        setInfo({ ...info, page: "Donate" });
-        break;
-
-      case "/legal":
-        setInfo({ ...info, page: "Legal" });
-        break;
-
-      case "/":
-        setInfo({ ...info, page: null });
-        break;
-
-      default:
-        break;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.pathname]);
-
   return (
     <>
       {/* Meta Tags for all the pages */}
-      <Meta page={info.page} />
+      {/* @ts-ignore */}
+      <Meta page={Component.title} />
 
       {/* Navbar */}
       <Navbar />
@@ -108,3 +78,4 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 export default App;
+export type { Page };
