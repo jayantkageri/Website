@@ -43,14 +43,14 @@ To run this website, you will need to add the following environment variables to
 
 ## Tech Stack
 
-**Client:** NextJS, TailwindCSS, React Toastify
+**Client:** [NextJS](https://nextjs.org), [TailwindCSS](https://tailwindcss.com), [React Hot Toast](https://react-hot-toast.com/)
 
-**Server:** NextJS, request-ip, nodemailer
+**Server:** [NextJS](https://nextjs.org), [request-ip](https://github.com/pbojinov/request-ip), [nodemailer](https://nodemailer.com/)
 
 ## Copyright
 
 * Copyright (C) 2021-2022 Jayant Hegde Kageri
 
-* Licensed under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+* Licensed under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](/COPYING)
 
-[![GNU AGPL-3.0-or-later](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+[![GNU AGPL-3.0-or-later](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](/COPYING)

@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <url>
-        <loc>https://www.jayantkageri.in/</loc>
-        <lastmod>2022-08-11T16:00:00+05:30</lastmod>
+        <loc>https://www.jayantkageri.in</loc>
+        <lastmod>2022-11-17T17:00:00+05:30</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://www.jayantkageri.in/contact</loc>
-        <lastmod>2022-08-11T16:00:00+05:30</lastmod>
+        <loc>https://www.jayantkageri.in/contact/</loc>
+        <lastmod>2022-11-17T17:00:00+05:30</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://www.jayantkageri.in/social</loc>
-        <lastmod>2022-08-11T16:00:00+05:30</lastmod>
+        <loc>https://www.jayantkageri.in/social/</loc>
+        <lastmod>2022-11-17T17:00:00+05:30</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://www.jayantkageri.in/intro</loc>
-        <lastmod>2022-08-11T16:00:00+05:30</lastmod>
+        <loc>https://www.jayantkageri.in/intro/</loc>
+        <lastmod>2022-11-17T17:00:00+05:30</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://www.jayantkageri.in/legal</loc>
-        <lastmod>2022-08-11T16:00:00+05:30</lastmod>
+        <loc>https://www.jayantkageri.in/legal/</loc>
+        <lastmod>2022-11-17T17:00:00+05:30</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.80</priority>
     </url>
-
-
 </urlset>

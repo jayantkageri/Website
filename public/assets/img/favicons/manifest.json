@@ -1,5 +1,15 @@
 {
-    "name": "App",
+    "name": "Jayant Hegde Kageri",
+    "short_name": "jayantkageri",
+    "description": "Nothing is easy in life when you aren't interested.",
+    "version": "2.1.0",
+    "manifest_version": 2,
+    "theme": {
+        "colors": {
+            "frame": "#111827",
+            "tab_background_text": "#111827"
+        }
+    },
     "icons": [
         {
             "src": "/assets/img/favicons/android-icon-36x36.png",

@@ -16,72 +16,97 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
-import { NextApiRequest, NextApiResponse } from 'next'
-import requestIp from 'request-ip'
-import { verify } from 'hcaptcha'
-import { createTransport } from 'nodemailer'
-import dns from "dns"
+import { NextApiRequest, NextApiResponse } from "next";
+import requestIp from "request-ip";
+import { verify } from "hcaptcha";
+import { createTransport } from "nodemailer";
+import dns from "dns";
 
 async function emailValidation(email: string): Promise<boolean> {
-    return new Promise((resolve) => {
-        // Regex Expression to check if the email is valid
-        const eMailRegex = new RegExp(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+  return new Promise((resolve) => {
+    // Regex Expression to check if the email is valid
+    const eMailRegex = new RegExp(
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    );
 
-        // Check if the email is valid
-        if (!eMailRegex.test(email)) return resolve(false);
+    // Check if the email is valid
+    if (!eMailRegex.test(email)) return resolve(false);
 
-        // Verify that the email domain is valid
-        dns.resolveMx(email.toString().split("@")[1], (err, res) => {
-            if (!err && res.length >= 1) return resolve(res.length <= 1 ? Boolean(res[0].exchange) : true);
-            return resolve(false);
-        })
-    })
+    // Verify that the email domain is valid
+    dns.resolveMx(email.toString().split("@")[1], (err, res) => {
+      if (!err && res.length >= 1)
+        return resolve(res.length <= 1 ? Boolean(res[0].exchange) : true);
+      return resolve(false);
+    });
+  });
 }
 
-async function telegram(id: number, name: string, email: string, ip: string | null, message: string, time: string): Promise<boolean> {
-    if (!process.env.BOT_TOKEN || !process.env.CHAT_ID) return false
-    // Message to be sent to the telegram
-    const msg = `#CONTACT_REQUEST
+async function telegram(
+  id: number,
+  name: string,
+  email: string,
+  ip: string | null,
+  message: string,
+  time: string
+): Promise<boolean> {
+  if (!process.env.BOT_TOKEN || !process.env.CHAT_ID) return false;
+  // Message to be sent to the telegram
+  const msg = `#CONTACT_REQUEST
     Refrence Number: ${id}
     Name: ${name}
     eMail: ${email}
     IP: ${ip} [ipinfo.io/${ip}]
     Timestamp: ${time}
     Message:\n${message}
-    `
+    `;
 
-    // Maximum length of the message sent through the Telegram
-    if (msg.length > 4096) return false
+  // Maximum length of the message sent through the Telegram
+  if (msg.length > 4096) return false;
 
-    // Sending the message to the telegram
-    const request = await fetch(`https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`, {
-        method: "POST",
-        headers: {
-            "Access-Control-Allow-Origin": "https://api.telegram.org",
-            "Content-Type": "application/json"
-        },
-        redirect: "follow",
-        body: JSON.stringify({
-            chat_id: process.env.CHAT_ID,
-            text: msg,
-            disable_web_page_preview: true,
-        })
-    })
+  // Sending the message to the telegram
+  const request = await fetch(
+    `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`,
+    {
+      method: "POST",
+      headers: {
+        "Access-Control-Allow-Origin": "https://api.telegram.org",
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      body: JSON.stringify({
+        chat_id: process.env.CHAT_ID,
+        text: msg,
+        disable_web_page_preview: true,
+      }),
+    }
+  );
 
-    // Await the response of Telegram
-    const response = await request.json()
+  // Await the response of Telegram
+  const response = await request.json();
 
-    // Returning the response to the client
-    return response.ok
+  // Returning the response to the client
+  return response.ok;
 }
 
-async function mail(id: number, name: string, email: string, ip: string | null, message: string, time: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-        if (!process.env.EMAIL_ID || !process.env.EMAIL_PASSWORD || !process.env.EMAIL_SMTP) return resolve(false)
+async function mail(
+  id: number,
+  name: string,
+  email: string,
+  ip: string | null,
+  message: string,
+  time: string
+): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    if (
+      !process.env.EMAIL_ID ||
+      !process.env.EMAIL_PASSWORD ||
+      !process.env.EMAIL_SMTP
+    )
+      return resolve(false);
 
-        // Details of the mail
-        const subject = `[JAYANTKAGERI.IN] Contact Request (${id})`
-        const txt = `
+    // Details of the mail
+    const subject = `[JAYANTKAGERI.IN] Contact Request (${id})`;
+    const txt = `
 New Contact Request
 You have received a new contact request from ${name}
 
@@ -92,9 +117,9 @@ You have received a new contact request from ${name}
     - IP Address: ${ip} [https://ipinfo.io/${ip}]
     - Message:
     ${message}
-`
+`;
 
-        const html = `
+    const html = `
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -922,106 +947,124 @@ You have received a new contact request from ${name}
     </div>
 </body>
 </html>
-        `
+        `;
 
-        // Creating the transporter
-        const transporter = createTransport({
-            // @ts-ignore
-            // SMTP Details
-            host: process.env.EMAIL_SMTP,
-            pool: true,
-            port: process.env.EMAIL_PORT || 465,
-            secure: process.env.EMAIL_SECURE || false,
-            auth: {
-                // User Credentials
-                user: process.env.EMAIL_ID,
-                pass: process.env.EMAIL_PASSWORD,
-            },
-            sender: `Server - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`
-        })
+    // Creating the transporter
+    const transporter = createTransport({
+      // @ts-ignore
+      // SMTP Details
+      host: process.env.EMAIL_SMTP,
+      pool: true,
+      port: process.env.EMAIL_PORT || 465,
+      secure: process.env.EMAIL_SECURE || false,
+      auth: {
+        // User Credentials
+        user: process.env.EMAIL_ID,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+      sender: `Server - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
+    });
 
-        // Verifying the transported is connected to the server
-        transporter.verify(function (error: any, success: any) {
-            // Check if the error is a connection error
-            if (error) {
-                // Reject the promise
-                reject(error)
-            }
-        });
+    // Verifying the transported is connected to the server
+    transporter.verify(function (error: any, success: any) {
+      // Check if the error is a connection error
+      if (error) {
+        // Reject the promise
+        reject(error);
+      }
+    });
 
-        // Sending the mail
-        transporter.sendMail({
-            from: `Contact - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
-            to: process.env.EMAIL_SEND_TO,
-            replyTo: email,
-            subject: subject,
-            text: txt,
-            html: html
-        }, (error: any, info: any) => {
-            if (error) reject(error)
-            resolve(info.response.includes("accepted"))
-        })
-    })
+    // Sending the mail
+    transporter.sendMail(
+      {
+        from: `Contact - Jayant Hegde Kageri <${process.env.EMAIL_ID}>`,
+        to: process.env.EMAIL_SEND_TO,
+        replyTo: email,
+        subject: subject,
+        text: txt,
+        html: html,
+      },
+      (error: any, info: any) => {
+        if (error) reject(error);
+        resolve(info.response.includes("accepted"));
+      }
+    );
+  });
 }
-
 
 async function contact(req: NextApiRequest, res: NextApiResponse) {
-    // Try the contact function
-    try {
-        if (req?.method !== "POST") {
-            return res.status(405).send("")
-        }
-
-        // Validations
-        if (
-            !req.body.name ||
-            !req.body.email ||
-            !req.body.message ||
-            process.env.HCAPTCHA_SECRET && !req.body.token
-        ) {
-            return res.status(400).send({ success: false, message: "Bad Request" })
-        }
-
-        if (!await emailValidation(req.body.email)) {
-            return res.status(400).send({ success: false, message: "Invalid Email ID" })
-        }
-
-        // Verifying the captcha if exists
-        if (process.env.HCAPTCHA_SECRET) {
-            const data = await verify(process.env.HCAPTCHA_SECRET, req.body.token)
-            if (!data.success) {
-                // If not captcha verified, return error
-                return res.status(400).send({ success: false, message: data['error-codes'] })
-            }
-        }
-
-        // Getting the Client IP
-        const ip = requestIp.getClientIp(req)
-
-        // Destructuring the request body
-        const { name, email, message } = req.body
-        const timeStamp = new Date().toISOString()
-        const id = Math.floor(Math.random() * 100000000) // 8 digit random number
-
-
-        let response: {email?: boolean, telegram?: boolean} = {}
-        
-        if (process.env.EMAIL_ID) {
-            // Sending the message to Email ID
-            response = { ...response, email: await mail(id, name, email, ip, message, timeStamp) }
-        }
-
-        if (process.env.BOT_TOKEN) {
-            // Sending the message to the Telegram
-            response = { ...response, telegram: await telegram(id, name, email, ip, message, timeStamp) }
-        }
-
-        // Sending the response to the client
-        return res.status(201).send({ success: true, type: response, sent: response.email || response.telegram || false })
-    } catch (err: Error | any) {
-        // If any error occurs, sending the error to the client
-        return res.status(500).send({ success: false, message: err.message || err || "Internal Server Error" })
+  // Try the contact function
+  try {
+    if (req?.method !== "POST") {
+      return res.status(405).end();
     }
+
+    // Validations
+    if (
+      !req.body.name ||
+      !req.body.email ||
+      !req.body.message ||
+      (process.env.HCAPTCHA_SECRET && !req.body.token)
+    ) {
+      return res.status(400).send({ success: false, message: "Bad Request" });
+    }
+
+    if (!(await emailValidation(req.body.email))) {
+      return res
+        .status(400)
+        .send({ success: false, message: "Invalid Email ID" });
+    }
+
+    // Verifying the captcha if exists
+    if (process.env.HCAPTCHA_SECRET) {
+      const data = await verify(process.env.HCAPTCHA_SECRET, req.body.token);
+      if (!data.success) {
+        // If not captcha verified, return error
+        return res
+          .status(400)
+          .send({ success: false, message: data["error-codes"] });
+      }
+    }
+
+    // Getting the Client IP
+    const ip = requestIp.getClientIp(req);
+
+    // Destructuring the request body
+    const { name, email, message } = req.body;
+    const timeStamp = new Date().toISOString();
+    const id = Math.floor(Math.random() * 100000000); // 8 digit random number
+
+    let response: { email?: boolean; telegram?: boolean } = {};
+
+    if (process.env.EMAIL_ID) {
+      // Sending the message to Email ID
+      response = {
+        ...response,
+        email: await mail(id, name, email, ip, message, timeStamp),
+      };
+    }
+
+    if (process.env.BOT_TOKEN) {
+      // Sending the message to the Telegram
+      response = {
+        ...response,
+        telegram: await telegram(id, name, email, ip, message, timeStamp),
+      };
+    }
+
+    // Sending the response to the client
+    return res.status(201).send({
+      success: true,
+      type: response,
+      sent: response.email || response.telegram || false,
+    });
+  } catch (err: Error | any) {
+    // If any error occurs, sending the error to the client
+    return res.status(500).send({
+      success: false,
+      message: err.message || err || "Internal Server Error",
+    });
+  }
 }
 
-export default contact
+export default contact;

@@ -85,11 +85,11 @@ const Home: Page = () => {
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1
+                  <h3
                     className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
                   >
                     Fullstack Developer
-                  </h1>
+                  </h3>
 
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}
@@ -120,11 +120,11 @@ const Home: Page = () => {
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1
+                  <h3
                     className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
                   >
                     Fully Flexible Applications
-                  </h1>
+                  </h3>
 
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}
@@ -182,11 +182,11 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
                 </span>
 
                 <div className="mt-4 md:mx-4 md:mt-0">
-                  <h1
+                  <h3
                     className={`${notoSans.className} text-2xl font-semibold capitalize text-white`}
                   >
                     Responsive Applications
-                  </h1>
+                  </h3>
 
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}

@@ -82,6 +82,7 @@ export default function Navbar() {
                     width={jayantkageri.width}
                     height={jayantkageri.height}
                     className="rounded-full"
+                    priority
                   />
 
                   {/* For Static Build */}

@@ -16,13 +16,13 @@
 // You should have received a copy of the GNU Affero General Public License
 // along with Website of jayantkageri.  If not, see <https://www.gnu.org/licenses/>.
 
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiRequest, NextApiResponse } from "next";
 
 function index(_: NextApiRequest, res: NextApiResponse) {
   // Sending the response
   return res.json({
     success: true,
-    message: "Application Programming Interface is online."
+    message: "Application Programming Interface is online.",
   });
 }
 
