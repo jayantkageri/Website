@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+// Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -40,8 +40,8 @@ const Contact: Page = () => {
     token?: string | null;
   }>();
   // Refrences for form and hCaptcha.
-  const ref = React.useRef<HTMLFormElement>();
-  const hcaptcha = React.useRef<HCaptcha>();
+  const ref = React.useRef<HTMLFormElement>(null);
+  const hcaptcha = React.useRef<HCaptcha>(null);
 
   const onChange = (e: React.ChangeEvent) => {
     let target: HTMLInputElement = e.target as HTMLInputElement;
@@ -168,7 +168,6 @@ const Contact: Page = () => {
           <Heading title={"Contact"} />
 
           <div className="mt-10 md:w-1/2 w-md md:mx-auto mx-4 select-none">
-            {/* @ts-ignore */}
             <form onSubmit={onSubmit} ref={ref}>
               <div className="-mx-2 md:flex">
                 <div className="w-full mx-2">
@@ -231,7 +230,6 @@ const Contact: Page = () => {
                       sitekey={process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY}
                       theme="dark"
                       size="normal"
-                      // @ts-ignore
                       ref={hcaptcha}
                       onVerify={(token) => setInfo({ ...info, token: token })}
                       onExpire={() => setInfo({ ...info, token: null })}

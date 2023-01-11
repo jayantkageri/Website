@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+// Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -19,13 +19,16 @@
 import React from "react";
 import type { AppProps } from "next/app";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import { Toaster, toast } from "react-hot-toast";
+import { Inter } from "@next/font/google";
 import Meta from "../components/Meta";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/globals.css";
 
 type Page<P = {}, IP = P> = NextPage<P, IP> & { title?: string };
+const inter = Inter({ weight: "400", style: "normal", subsets: ["latin"] });
 
 function App({ Component, pageProps }: AppProps) {
   // States
@@ -34,6 +37,7 @@ function App({ Component, pageProps }: AppProps) {
     notice: boolean;
     cookies: boolean | null;
   }>({ notice: false, page: null, cookies: null });
+  const router = useRouter();
 
   // AGPL-3.0-or-later License Notice
   if (!info?.notice) {
@@ -43,7 +47,7 @@ function App({ Component, pageProps }: AppProps) {
         new Date().getFullYear() === 2021
           ? 2021
           : `2021 - ${new Date().getFullYear()}`
-      } Jayant Hegde Kageri <https://github.com/jayantkageri>`
+      } Jayant Hegde Kageri < https://github.com/jayantkageri >`
     );
     console.info(
       "This website is licensed under GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later)."
@@ -63,7 +67,7 @@ function App({ Component, pageProps }: AppProps) {
         toast.custom(
           (t) => (
             <div
-              className={`${
+              className={`${inter.className} ${
                 t.visible ? "animate-enter" : "animate-leave"
               } max-w-md w-full bg-gray-800 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
             >
@@ -217,6 +221,18 @@ function App({ Component, pageProps }: AppProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info.cookies]);
 
+  // Prevent accident closing of the tab in Contact form
+  React.useEffect(() => {
+    window.onbeforeunload = function (e) {
+      e = e || window.event;
+      // For IE and Firefox prior to version 4
+      if (e) e.returnValue = "Leave site?";
+
+      // For Safari
+      return "Leave site?";
+    };
+  }, [router.pathname]);
+
   return (
     <>
       {/* Meta Tags for all the pages */}
@@ -227,7 +243,7 @@ function App({ Component, pageProps }: AppProps) {
       <Navbar />
       {/* React Toastify */}
       <Toaster position="top-right" />
-      <main className="bg-gray-900 min-h-screen">
+      <main className="bg-gray-900 min-h-screen text-slate-50">
         {/* Main content of the page */}
         <Component {...pageProps} />
       </main>

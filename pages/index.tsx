@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+// Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -94,9 +94,9 @@ const Home: Page = () => {
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}
                   >
-                    I am a Fullstack Developer with experience building NextJS,
-                    ReactJS, ExpressJS, and Python apps using TailwindCSS and
-                    Bootstrap for designing.
+                    As a full-stack developer, I have a strong proficiency in
+                    NextJS, ReactJS, TailwindCSS, ExpressJS, TypeScript, and
+                    Python.
                   </p>
                 </div>
               </div>
@@ -129,8 +129,9 @@ const Home: Page = () => {
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}
                   >
-                    With the power of TailwindCSS and NextJS, all of my websites
-                    are fully flexible and customizable.
+                    Skills and knowledge in NextJS, ExpressJS, TypeScript, and
+                    Python enable me to build high-quality web applications with
+                    excellent performance and user experience.
                   </p>
                 </div>
               </div>
@@ -191,8 +192,10 @@ c96 -1 138 -9 220 -45 16 -7 17 16 17 401 0 448 -6 503 -57 591 -61 106 -179
                   <p
                     className={`${inter.className} mt-3 text-gray-300 text-base`}
                   >
-                    Whether a mobile client or desktop client, I can build a
-                    fully responsive website for all devices.
+                    With my skills in responsive web design and development, I
+                    am able to build applications that can adapt to any screen
+                    size and device, providing an optimal user experience for
+                    all users.
                   </p>
                 </div>
               </div>

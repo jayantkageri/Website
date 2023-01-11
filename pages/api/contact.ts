@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+// Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -995,9 +995,7 @@ You have received a new contact request from ${name}
 async function contact(req: NextApiRequest, res: NextApiResponse) {
   // Try the contact function
   try {
-    if (req?.method !== "POST") {
-      return res.status(405).end();
-    }
+    if (req.method !== "POST") return res.status(405).end();
 
     // Validations
     if (

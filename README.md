@@ -1,5 +1,5 @@
 <!-- Website of jayantkageri, NextJS Site for jayantkageri.in
-Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 This file is part of Website of jayantkageri.
 
@@ -24,22 +24,23 @@ _This repository contains the Source Code of the Website [jayantkageri.in](https
 
 To run this website, you will need to add the following environment variables to your .env file or your environment variables
 
-* `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` **optional** - hCaptcha Site Key
+- `NEXT_PUBLIC_HCAPTCHA_SITE_KEY` **optional** - hCaptcha Site Key
 
-* `HCAPTCHA_SECRET` **optional** - hCaptcha Secret for verifying the response
+- `HCAPTCHA_SECRET` **optional** - hCaptcha Secret for verifying the response
 
-* `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` **optional** - Google Tag Manager Tracking ID
+- `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` **optional** - Google Tag Manager Tracking ID
 
-* Enviorment variables for notifing contact request from [Telegram Bot](https://telegram.me/BotFather):
-  * `BOT_TOKEN` **required** - Telegram Bot token obtained in [@BotFather](https://telegram.me/BotFather)
-  * `CHAT_ID` **required** - Telegram Chat ID to send the contact requests
+- Enviorment variables for notifing contact request from [Telegram Bot](https://telegram.me/BotFather):
 
-* Environemt variables for notifing contact request from e-Mail:
-  * `EMAIL_SMTP` **required** - SMTP Server to send the e-Mail
-  * `EMAIL_ID` **required** - Email ID which from which the contact requests will be notified
-  * `EMAIL_PASSWORD` **required** - Password for the above Email ID
-  * `EMAIL_SEND_TO` **required** - Email ID to send the contact requests
-  * `EMAIL_SECURE` **optional** - Whether to use TLS or not (defaults to false)
+  - `BOT_TOKEN` **required** - Telegram Bot token obtained in [@BotFather](https://telegram.me/BotFather)
+  - `CHAT_ID` **required** - Telegram Chat ID to send the contact requests
+
+- Environemt variables for notifing contact request from e-Mail:
+  - `EMAIL_SMTP` **required** - SMTP Server to send the e-Mail
+  - `EMAIL_ID` **required** - Email ID which from which the contact requests will be notified
+  - `EMAIL_PASSWORD` **required** - Password for the above Email ID
+  - `EMAIL_SEND_TO` **required** - Email ID to send the contact requests
+  - `EMAIL_SECURE` **optional** - Whether to use TLS or not (defaults to false)
 
 ## Tech Stack
 
@@ -49,8 +50,8 @@ To run this website, you will need to add the following environment variables to
 
 ## Copyright
 
-* Copyright (C) 2021-2022 Jayant Hegde Kageri
+- Copyright (C) 2021-2022 Jayant Hegde Kageri
 
-* Licensed under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](/COPYING)
+- Licensed under the terms and conditions of [GNU Affero General Public License v3 or later (AGPL-3.0-or-later)](/COPYING)
 
 [![GNU AGPL-3.0-or-later](https://www.gnu.org/graphics/agplv3-with-text-162x68.png)](/COPYING)

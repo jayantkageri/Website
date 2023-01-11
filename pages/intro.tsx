@@ -1,5 +1,5 @@
 // Website of jayantkageri, NextJS Site for jayantkageri.in
-// Copyright (C) 2021 - 2022 Jayant Hegde Kageri <https://github.com/jayantkageri>
+// Copyright (C) 2021 - 2023 Jayant Hegde Kageri <https://github.com/jayantkageri>
 
 // This file is part of Website of jayantkageri.
 
@@ -19,32 +19,33 @@
 import React from "react";
 import type { Page } from "./_app";
 import banner from "../assets/banner.png";
+import Heading from "../components/Heading";
 
 const Intro: Page = () => {
   return (
     <>
-      <section id="intro" className="bg-gray-900 min-w-full min-h-screen">
-        <div className="container">
-          <header className="bg-gray-900">
-            <div className="container px-6 py-16 mx-auto">
-              <div className="items-center flex justify-center">
-                <div className="w-full">
-                  <video
-                    className="w-full h-full rounded"
-                    poster={banner.src}
-                    controls
-                    // Disable Playback Speed Option
-                    controlsList={"noplaybackrate"}
-                  >
-                    <source
-                      src={"/assets/videos/jayantkageri.mp4"}
-                      type="video/mp4"
-                    />
-                  </video>
-                </div>
+      <section id="intro" className="bg-gray-900 min-h-screen">
+        <div className="container px-6 py-10 mx-auto">
+          <Heading title={"Introduction"} />
+
+          <div className="container px-6 py-6 mx-auto">
+            <div className="items-center flex justify-center">
+              <div className="w-full">
+                <video
+                  className="w-full h-full rounded"
+                  poster={banner.src}
+                  controls
+                  // Disable Playback Speed Option
+                  controlsList={"noplaybackrate"}
+                >
+                  <source
+                    src={"/assets/videos/jayantkageri.mp4"}
+                    type="video/mp4"
+                  />
+                </video>
               </div>
             </div>
-          </header>
+          </div>
         </div>
       </section>
     </>
